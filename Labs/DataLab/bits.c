@@ -159,157 +159,244 @@ NOTES:
    Unicode 6.0.  */
 /* We do not support C11 <threads.h>.  */
 /* 
- * bitAnd - x&y using only ~ and | 
- *   Example: bitAnd(6, 5) = 4
- *   Legal ops: ~ |
+ * bitNor - ~(x|y) using only ~ and & 
+ *   Example: bitNor(0x6, 0x5) = 0xFFFFFFF8
+ *   Legal ops: ~ &
  *   Max ops: 8
  *   Rating: 1
  */
-int bitAnd(int x, int y) {
-  return 2;
+int bitNor(int x, int y) {
+  return ~x & ~y;
 }
 /* 
- * getByte - Extract byte n from word x
- *   Bytes numbered from 0 (LSB) to 3 (MSB)
- *   Examples: getByte(0x12345678,1) = 0x56
- *   Legal ops: ! ~ & ^ | + << >>
- *   Max ops: 6
- *   Rating: 2
- */
-int getByte(int x, int n) {
-  return 2;
-}
-/* 
- * logicalShift - shift x to the right by n, using a logical shift
- *   Can assume that 0 <= n <= 31
- *   Examples: logicalShift(0x87654321,4) = 0x08765432
- *   Legal ops: ~ & ^ | + << >>
- *   Max ops: 20
- *   Rating: 3 
- */
-int logicalShift(int x, int n) {
-  return 2;
-}
-/*
- * bitCount - returns count of number of 1's in word
- *   Examples: bitCount(5) = 2, bitCount(7) = 3
- *   Legal ops: ! ~ & ^ | + << >>
- *   Max ops: 40
- *   Rating: 4
- */
-int bitCount(int x) {
-  return 2;
-}
-/* 
- * bang - Compute !x without using !
- *   Examples: bang(3) = 0, bang(0) = 1
- *   Legal ops: ~ & ^ | + << >>
- *   Max ops: 12
- *   Rating: 4 
- */
-int bang(int x) {
-  return 2;
-}
-/* 
- * tmin - return minimum two's complement integer 
+ * TMax - return maximum two's complement integer 
  *   Legal ops: ! ~ & ^ | + << >>
  *   Max ops: 4
  *   Rating: 1
  */
-int tmin(void) {
-  return 2;
+int tmax(void) {
+  return ~(0x01 << 31);
 }
 /* 
- * fitsBits - return 1 if x can be represented as an 
- *  n-bit, two's complement integer.
- *   1 <= n <= 32
- *   Examples: fitsBits(5,3) = 0, fitsBits(-4,3) = 1
- *   Legal ops: ! ~ & ^ | + << >>
- *   Max ops: 15
- *   Rating: 2
+ * sign - return 1 if positive, 0 if zero, and -1 if negative
+ *  Examples: sign(130) = 1
+ *            sign(-23) = -1
+ *  Legal ops: ! ~ & ^ | + << >>
+ *  Max ops: 10
+ *  Rating: 2
  */
-int fitsBits(int x, int n) {
-  return 2;
+int sign(int x) {
+    return (((x >> 31)) | !!x);
 }
 /* 
- * divpwr2 - Compute x/(2^n), for 0 <= n <= 30
- *  Round toward zero
- *   Examples: divpwr2(15,1) = 7, divpwr2(-33,4) = -2
- *   Legal ops: ! ~ & ^ | + << >>
- *   Max ops: 15
- *   Rating: 2
- */
-int divpwr2(int x, int n) {
-    return 2;
-}
-/* 
- * negate - return -x 
- *   Example: negate(1) = -1.
- *   Legal ops: ! ~ & ^ | + << >>
- *   Max ops: 5
- *   Rating: 2
- */
-int negate(int x) {
-  return 2;
-}
-/* 
- * isPositive - return 1 if x > 0, return 0 otherwise 
- *   Example: isPositive(-1) = 0.
- *   Legal ops: ! ~ & ^ | + << >>
- *   Max ops: 8
- *   Rating: 3
- */
-int isPositive(int x) {
-  return 2;
-}
-/* 
- * isLessOrEqual - if x <= y  then return 1, else return 0 
- *   Example: isLessOrEqual(4,5) = 1.
- *   Legal ops: ! ~ & ^ | + << >>
- *   Max ops: 24
- *   Rating: 3
- */
-int isLessOrEqual(int x, int y) {
-  return 2;
-}
-/*
- * ilog2 - return floor(log base 2 of x), where x > 0
- *   Example: ilog2(16) = 4
- *   Legal ops: ! ~ & ^ | + << >>
- *   Max ops: 90
- *   Rating: 4
- */
-int ilog2(int x) {
-  return 2;
-}
-/* 
- * float_neg - Return bit-level equivalent of expression -f for
+ * float_abs - Return bit-level equivalent of absolute value of f for
  *   floating point argument f.
  *   Both the argument and result are passed as unsigned int's, but
  *   they are to be interpreted as the bit-level representations of
  *   single-precision floating point values.
- *   When argument is NaN, return argument.
+ *   When argument is NaN, return argument..
  *   Legal ops: Any integer/unsigned operations incl. ||, &&. also if, while
  *   Max ops: 10
  *   Rating: 2
  */
-unsigned float_neg(unsigned uf) {
- return 2;
+unsigned float_abs(unsigned uf) {
+    unsigned not_a_number = (0x7F << 24) | (0x80 << 16) | 0x01;
+    unsigned abs = uf & ~(0x80 << 24);
+    
+    if (abs >= not_a_number) {
+        return uf;
+    } else {
+        return abs;
+    }
 }
 /* 
- * float_i2f - Return bit-level equivalent of expression (float) x
- *   Result is returned as unsigned int, but
+ * copyLSB - set all bits of result to least significant bit of x
+ *   Example: copyLSB(5) = 0xFFFFFFFF, copyLSB(6) = 0x00000000
+ *   Legal ops: ! ~ & ^ | + << >>
+ *   Max ops: 5
+ *   Rating: 2
+ */
+int copyLSB(int x) {
+    return (x << 31) >> 31;
+}
+/* 
+ * allEvenBits - return 1 if all even-numbered bits in word set to 1
+ *   Examples allEvenBits(0xFFFFFFFE) = 0, allEvenBits(0x55555555) = 1
+ *   Legal ops: ! ~ & ^ | + << >>
+ *   Max ops: 12
+ *   Rating: 2
+ */
+int allEvenBits(int x) {
+    int mask = (0x55 | 0x55 << 8 | 0x55 << 16 | 0x55 << 24);
+    return !((x & mask) ^ mask);
+}
+/* 
+ * byteSwap - swaps the nth byte and the mth byte
+ *  Examples: byteSwap(0x12345678, 1, 3) = 0x56341278
+ *            byteSwap(0xDEADBEEF, 0, 2) = 0xDEEFBEAD
+ *  You may assume that 0 <= n <= 3, 0 <= m <= 3
+ *  Legal ops: ! ~ & ^ | + << >>
+ *  Max ops: 25
+ *  Rating: 2
+ */
+int byteSwap(int x, int n, int m) {
+    int nth = ((x >> (n<<0x3)) & 0xFF) << (m << 0x3);
+    int mth = ((x >> (m<<0x3)) & 0xFF) << (n << 0x3);
+    int newX = (x & ~(0xFF << (n << 0x3) | (0xFF << (m << 3))));
+    return nth | mth | newX;
+}
+/* 
+ * reverseBytes - reverse the bytes of x
+ *   Example: reverseBytes(0x01020304) = 0x04030201
+ *   Legal ops: ! ~ & ^ | + << >>
+ *   Max ops: 25
+ *   Rating: 3
+ */
+int reverseBytes(int x) {
+    int new3 = x << 24;
+    int new2 = (x & (0xFF << 8)) << 8;
+    int new1 = (x & (0xFF << 16)) >> 8;
+    int new0 = (x >> 24) & 0xFF;
+    return new3 | new2 | new1 | new0;
+}
+/* 
+ * bitMask - Generate a mask consisting of all 1's 
+ *   lowbit and highbit
+ *   Examples: bitMask(5,3) = 0x38
+ *   Assume 0 <= lowbit <= 31, and 0 <= highbit <= 31
+ *   If lowbit > highbit, then mask should be all 0's
+ *   Legal ops: ! ~ & ^ | + << >>
+ *   Max ops: 16
+ *   Rating: 3
+ */
+int bitMask(int highbit, int lowbit) {
+    int allOnes = ~0;
+    int highSeg = (allOnes << highbit) << 1;
+    int lowSeg = allOnes << lowbit;
+    
+    return (highSeg ^ lowSeg) & lowSeg;
+}
+/* 
+ * isLess - if x < y  then return 1, else return 0 
+ *   Example: isLess(4,5) = 1.
+ *   Legal ops: ! ~ & ^ | + << >>
+ *   Max ops: 24
+ *   Rating: 3
+ */
+int isLess(int x, int y) {
+    int xIsNeg = x >> 31;
+    int yIsNeg = y >> 31;
+    int xNeg_yPos =  xIsNeg & !yIsNeg;
+    int xPos_yNeg = !xIsNeg &  yIsNeg;
+    int XMinusYIsPos=!((x + (~y + 1)) >> 31);
+    int yIsINT_MIN=!((0x80 << 24) ^ y);
+    int greaterThanEqual = xPos_yNeg | yIsINT_MIN | (XMinusYIsPos & !xNeg_yPos);
+    return !greaterThanEqual;
+}
+
+/* howManyBits - return the minimum number of bits required to represent x in
+ *             two's complement
+ *  Examples: howManyBits(12) = 5
+ *            howManyBits(298) = 10
+ *            howManyBits(-5) = 4
+ *            howManyBits(0)  = 1
+ *            howManyBits(-1) = 1
+ *            howManyBits(0x80000000) = 32
+ *  Legal ops: ! ~ & ^ | + << >>
+ *  Max ops: 90
+ *  Rating: 4
+ */
+int howManyBits(int x) {
+    int tmp, bitNum;
+    int retVal = 0x01;
+    
+    tmp = x^(x>>31);
+    
+    bitNum = (!!(tmp & ((0xFF<<8 | 0xFF) << 16))) << 4;
+    retVal += bitNum;
+    tmp = tmp >> bitNum;
+    
+    bitNum = (!!(tmp & 0xFF<<8)) << 3;
+    retVal += bitNum;
+    tmp = tmp >> bitNum;
+    
+    bitNum = (!!(tmp & 0xF0)) << 2;
+    retVal += bitNum;
+    tmp = tmp >> bitNum;
+    
+    bitNum = (!!(tmp & 0xC)) << 1;
+    retVal += bitNum;
+    tmp = tmp >> bitNum;
+    
+    bitNum = !!(tmp & 0x2);
+    retVal += bitNum;  
+    tmp = tmp >> bitNum;
+    
+    return retVal + (tmp & 0x01);
+}
+
+/*
+ * isPower2 - returns 1 if x is a power of 2, and 0 otherwise
+ *   Examples: isPower2(5) = 0, isPower2(8) = 1, isPower2(0) = 0
+ *   Note that no negative number is a power of 2.
+ *   Legal ops: ! ~ & ^ | + << >>
+ *   Max ops: 20
+ *   Rating: 4
+ */
+int isPower2(int x) {
+    int xIsNeg = x >> 31;
+    int diff = (0 ^ ~xIsNeg);
+    int retVal = !((x & (x + diff)) + !x);
+    
+    return retVal;
+}
+
+/* 
+ * float_f2i - Return bit-level equivalent of expression (int) f
+ *   for floating point argument f.
+ *   Argument is passed as unsigned int, but
  *   it is to be interpreted as the bit-level representation of a
- *   single-precision floating point values.
+ *   single-precision floating point value.
+ *   Anything out of range (including NaN and infinity) should return
+ *   0x80000000u.
  *   Legal ops: Any integer/unsigned operations incl. ||, &&. also if, while
  *   Max ops: 30
  *   Rating: 4
  */
-unsigned float_i2f(int x) {
-  return 2;
+int float_f2i(unsigned uf) {
+    int floatExp = (uf >> 23) & 0xFF;
+    int retVal = uf & ~(0x80 << 24) & ~(0xFF << 24);
+    int shift = floatExp + (~0x7F + 1);
+    int not_a_number = 0x7F << 24 | 0x80 << 16;
+    int nanRetVal = 0x80 << 24;
+    
+    if(floatExp == not_a_number) {
+        return nanRetVal;
+    }
+    
+    if(!floatExp || shift < 0) {
+        return 0;
+    } else if(shift > 30) {
+        return nanRetVal;
+    }
+    
+    retVal = retVal | 0x80 << 16;
+    
+    if (shift >= 23) {
+        retVal = retVal << (shift - 23);
+    } else {
+        retVal = retVal >> (23 - shift);
+    }
+    
+    if(( uf >> 31 ) & 1) {
+        return ~retVal + 1;
+    }
+    
+    return retVal;
 }
+
 /* 
- * float_twice - Return bit-level equivalent of expression 2*f for
+ * float_half - Return bit-level equivalent of expression 0.5*f for
  *   floating point argument f.
  *   Both the argument and result are passed as unsigned int's, but
  *   they are to be interpreted as the bit-level representation of
@@ -319,7 +406,41 @@ unsigned float_i2f(int x) {
  *   Max ops: 30
  *   Rating: 4
  */
-unsigned float_twice(unsigned uf) {
-  return 2;
+unsigned float_half(unsigned uf) {
+    unsigned ufIsNeg = uf & 0x80 << 24;
+    unsigned floatExp = uf >> 23 & 0xFF;
+    unsigned num = uf & (0x7f << 16 | 0xff << 8 | 0xff);
+    
+    if(floatExp == 0xFF) {
+        return uf;
+    } else if (floatExp > 0x01) {
+        return ufIsNeg | --floatExp << 23 | num;
+    } else {
+        if (floatExp == 1) {
+            num |= 1 << 23;
+        }
+        if ((num & 3) == 3) {
+            num++;
+        }
+        num  = num >> 1;
+        return ufIsNeg | num;
+    }
 }
+
+/*
+ * bitParity - returns 1 if x contains an odd number of 0's
+ *   Examples: bitParity(5) = 0, bitParity(7) = 1
+ *   Legal ops: ! ~ & ^ | + << >>
+ *   Max ops: 20
+ *   Rating: 4
+ */
+int bitParity(int x) {
+    x = (x >> 0x10) ^ x;
+    x = (x >> 0x08) ^ x;
+    x = (x >> 0x04) ^ x;
+    x = (x >> 0x02) ^ x;
+    x = (x >> 0x01) ^ x;
+    return (x & 0x01);
+}
+
 // Should be 15 puzzles, 2 level 1 puzzles, 5 level 2 puzzles, 3 level 3 puzzles, 5 level 4 puzzles
