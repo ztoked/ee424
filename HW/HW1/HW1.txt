@@ -1,0 +1,200 @@
+*****************2.61*****************
+
+int any_bit_one(int x) {
+    // Fill in code for part B here.
+    return !!x;
+}
+
+int any_bit_zero(int x) {
+    // Fill in code for part B here.
+    return !!(~x);
+}
+
+int lsb_one(int x) {
+    // Fill in code for part C here.
+    return !!(x & 0x000000FF);
+}
+
+int msb_zero(int x) {
+    // Fill in code for part D here.
+    return !!(~x & 0xFF000000);
+}
+
+OUTPUT:
+All tests passed!
+any_bit_one(0x00000000) = 0
+any_bit_one(0x00000001) = 1
+any_bit_one(0x00000005) = 1
+any_bit_one(0x05f7693a) = 1
+any_bit_one(0x000bf19d) = 1
+
+any_bit_zero(0x00000000) = 1
+any_bit_zero(0x00000001) = 1
+any_bit_zero(0x00000005) = 1
+any_bit_zero(0x05f7693a) = 1
+any_bit_zero(0xffffffff) = 0
+
+lsb_one(0x00000000) = 0
+lsb_one(0x00000001) = 1
+lsb_one(0x00000005) = 1
+lsb_one(0x05f7693a) = 1
+lsb_one(0x000bf19d) = 1
+
+msb_zero(0x00000000) = 1
+msb_zero(0x00000001) = 1
+msb_zero(0x00000005) = 1
+msb_zero(0x05f7693a) = 1
+msb_zero(0x000bf19d) = 1
+
+*****************2.71*****************
+
+A- It does not sign extend the value
+B- Answer can be seen below
+
+/* change the function below to give the correct answer */
+int myxbyte(packed_t word, int bytenum)
+{
+    int retWord = word << ((3-bytenum) << 3);
+    return (retWord >> (3 << 3));
+}
+
+OUTPUT:
+Packed value (x) = 0x1234abff, value returned by xbyte(x,0) = 0xff
+Packed value (x) = 0x1234abff, value returned by xbyte(x,1) = 0xab
+Packed value (x) = 0x1234abff, value returned by xbyte(x,2) = 0x34
+Packed value (x) = 0x1234abff, value returned by xbyte(x,3) = 0x12
+Packed value (x) = 0x1234abff, value returned by myxbyte(x,0) = 0xffffffff
+Packed value (x) = 0x1234abff, value returned by myxbyte(x,1) = 0xffffffab
+Packed value (x) = 0x1234abff, value returned by myxbyte(x,2) = 0x34
+Packed value (x) = 0x1234abff, value returned by myxbyte(x,3) = 0x12
+
+*****************2.72*****************
+
+A- maxbytes is an int and sizeof returns an unsigned so it implicitly casts the int to an unsigned to make the subtraction. This will make it always return a positive value.
+B- We simply need to cast sizeof to an int as seen below to make it possible to be a negative number.
+
+void copy_int(int val, void *buf, int maxbytes)
+{
+    if (maxbytes-(int)sizeof(val) >= 0)
+    memcpy(buf, (void *) &val, sizeof(val));
+}
+
+Original:
+iteration 0
+y: 67 45 23 01 00 00
+
+iteration 1
+y: 00 67 45 23 01 00
+
+iteration 2
+y: 00 00 67 45 23 01
+
+iteration 3
+y: 00 00 00 67 45 23
+
+iteration 4
+y: 00 00 00 00 67 45
+
+iteration 5
+y: 00 00 00 00 00 67
+
+New:
+iteration 0
+y: 67 45 23 01 00 00
+
+iteration 1
+y: 00 67 45 23 01 00
+
+iteration 2
+y: 00 00 67 45 23 01
+
+iteration 3
+y: 00 00 00 00 00 00
+
+iteration 4
+y: 00 00 00 00 00 00
+
+iteration 5
+y: 00 00 00 00 00 00
+
+*****************2.77*****************
+
+/* Part A */
+result1 = (x << 4) + x;
+
+/* Part B */
+result1 = 0 - (x << 3) + x;
+
+/* Part C */
+result1 = (x << 6) - (x << 2);
+
+/* Part D */
+result1 = 0 - (x << 7) + (x << 4);
+
+OUTPUT:
+K=9: +-<< result = 90, * result = 90
+K=17: +-<< result = 170, * result = 170
+K=-7: +-<< result = -70, * result = -70
+K=60: +-<< result = 600, * result = 600
+K=-112: +-<< result = -1120, * result = -1120
+
+*****************2.82*****************
+
+#include <stdio.h>
+#include <limits.h>
+
+int testCases[] = {INT_MIN, -1073741818, -100, -5, -1, 0, 1, 5, 100, 1073741818, INT_MAX};
+
+int main()
+{
+    int i, j;
+    for(i = 0; i < 11; ++i)
+    {
+        for(j = 0; j < 11; ++j)
+        {
+            int x = testCases[i];
+            int y = testCases[j];
+            unsigned ux = (unsigned) x;
+            unsigned uy = (unsigned) y;
+            if((x<y) != ((x * -1)>(y * -1)))
+            {
+                printf("A failed! x = %d, y = %d\n", x,y);
+            }
+            if(((x+y)<<4) + y-x != 17*y+15*x)
+            {
+                printf("B failed! x = %d, y = %d", x,y);
+            }
+            if(~x+~y+1 != ~(x+y))
+            {
+                printf("C failed! x = %d, y = %d\n", x,y);
+            }
+            if((ux-uy) != -(unsigned) (y-x))
+            {
+                printf("D failed! x = %d, y = %d, ux = %u, uy = %u\n", x,y,ux,uy);
+            }
+            if(((x >> 2) << 2) > x)
+            {
+                printf("E failed! x = %d, y = %d\n", x,y);
+            }
+        }
+    }
+    printf("Finished tests\n");
+}
+
+A- NOT always true. If one value is so negative that multiplying by a negative 1 results with the same value it fails.
+B- Always true. When the left side is simplified it is the right side
+((x+y)<<4) + y-x =
+((x+y)*16) + y-x =
+16x + 16y + y - x =
+15x + 17y
+C- Always true. ~x = -x -1 using this definition we can simplify the left and right sides to be -x - y - 1.
+D- Always true. Casting a signed to an unsigned doesn't change the saved binary value in the register, it only changes how a value is interpreted. So they will always be the same.
+E- Always true. All bits are left untouched except the 2 least significant which will only set them to zero so it will always be the same value or less
+
+*****************424-1*****************
+
+A- I think it will get stuck in an infinite loop. There is no value that I can think of that if you add 1 to it, it will stay the same.
+B- No. It did end up leaving the loop.
+C- 16777216. Floats can only hold a certain number of significant figures. It must make it to a point that the number of significant figures can't distinguish between to the two numbers.
+D- With a float there are 8 bits dedicated to the exponent value but with double it has 11 so it. With 8 bits there are 256 options, with 11 bits there are 2048 options so it should take around 4 times as long.
+E- Because there are not multiple ways to represent the same number
