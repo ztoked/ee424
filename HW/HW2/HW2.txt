@@ -1,0 +1,134 @@
+*****************Problem 2.87*****************
+
+Description_|___Hex___|____M____|___E___|____V_____|_D_____________|
+_____-0_____|__0x8000_|____0____|__-14__|___-0_____|_-0.0__________|
+Smallest > 2|__0x4001_|1025/1024|___1___|_1025x2^-9|_2.001953125___|
+_____512____|__0x6000_|____1____|___9___|__1x2^9___|_512.0_________|
+__LARGE DN__|__0x03FF_|1023/1024|__-14__|1023x2^-24|_0.000060976___|
+_- Infinity_|__0xFC00_|_________|_______|__________|_______________|
+ __0x3BB0___|__0x3BB0_|1968/1024|___-2__|1968x2^-12|_0.047851562___|
+
+*****************Problem 2.93*****************
+
+unsigned not_a_number = (0x7F << 24) | (0x80 << 16) | 0x01;
+unsigned abs = f & ~(0x80 << 24);
+
+if (abs >= not_a_number) {
+    return f;
+} else {
+    return abs;
+}
+
+All 2^32 values check out
+Input: -1.000000e+00
+	 My abs: 1.000000e+00
+	 C abs: 1.000000e+00
+Input: 1.000000e+00
+	 My abs: 1.000000e+00
+	 C abs: 1.000000e+00
+Input: 0.000000e+00
+	 My abs: 0.000000e+00
+	 C abs: 0.000000e+00
+Input: -1.048575e+06
+	 My abs: 1.048575e+06
+	 C abs: 1.048575e+06
+Input: 6.964691e+08
+	 My abs: 6.964691e+08
+	 C abs: 6.964691e+08
+
+*****************Problem 3.58*****************
+
+decode2:
+.LFB0:
+	.cfi_startproc
+	subq	%rdx, %rsi
+	movq	%rdi, %rax
+	imulq	%rsi, %rax
+	salq	$63, %rsi
+	sarq	$63, %rsi
+	xorq	%rsi, %rax
+	ret
+	.cfi_endproc
+.LFE0:
+	.size	decode2, .-decode2
+	.globl	main
+	.type	main, @function
+
+long decode2(long x, long y, long z) {
+    long tmp;
+    y = y - z;
+    x = y * x;
+    tmp = y;
+    tmp = (tmp << 63);
+    tmp = (tmp >> 63);
+    long ret = x ^ tmp;
+    return ret;
+}
+
+The differences are very minor and could simply just be a difference in compiler
+
+*****************Problem 3.59*****************
+
+answer   = (2^64(xHi) + xLow) * (2^64(yHi) + yLow)
+(FOILed) = (2^64 * xh * yl) + (2^64 * yh * xl) + (yl * xl)
+This is accomplished in the below function as described in the comments
+
+store_prod:
+    ;Put y into local variable
+    movq   %rdx, %rax
+
+    ;Sign extends y through yHi
+    cqto
+
+    ;Put x into local variable
+    movq   %rsi,   %rcx
+
+    ;Sign extends x through xHi
+    sarq   $63,    %rcx
+
+    ; rcx = yLow * xHi
+    imulq  %rax,   %rcx
+
+    ; rdx = xLow * yHi
+    imulq  %rsi,   %rdx
+
+    ; rcx = adds the two together
+    addq   %rdx,   %rcx
+
+    ; rdx = xLow * yLow
+    mulq   %rsi
+
+    ; adds overflow into upper register
+    addq   %rcx,   %rdx
+
+    ; moves sumLow into returnLow
+    movq   %rax,  (%rdi)
+    ; moves sumHi into returnHi
+    movq   %rdx, 8(%rdi)
+    ret
+
+
+*****************Problem 3.60*****************
+
+A-
+    x = rdi
+    n = rsi
+    result = rax, eax(originally)
+    mask = rdx
+B-
+    result = 0
+    mask = 1
+C-
+    mask > 0
+D-
+    mask = mask << (n & 0xFF)
+E-
+
+long loop(long x, long n) {
+    long result = 0;
+    long mask;
+    for (mask = 1; mask > 0; mask = mask << (n & 0xFF)) {
+     	result |= mask & x;
+    }
+    return result;
+}
