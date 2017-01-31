@@ -1,0 +1,2170 @@
+All defined variables:
+
+File ../csu/init-first.c:
+int __libc_argc;
+char **__libc_argv;
+int __libc_multiple_libcs;
+
+File ../elf/dl-sysdep.c:
+int __GI___libc_enable_secure;
+void *__GI___libc_stack_end;
+int __libc_enable_secure;
+int __libc_multiple_libcs;
+void *__libc_stack_end;
+void *_dl_random;
+
+File ../login/utmp_file.c:
+const struct utfuncs __libc_utmp_file_functions;
+static int file_fd;
+static off64_t file_offset;
+static _Bool file_writable;
+static struct utmp last_entry;
+
+File ../misc/syslog.c:
+static int LogFacility;
+static int LogFile;
+static int LogMask;
+static int LogStat;
+static const char *LogTag;
+static int LogType;
+static struct sockaddr_un SyslogAddr;
+static int connected;
+static __libc_lock_t syslog_lock;
+
+File ../nss/getXXbyYY.c:
+static char *buffer;
+static __libc_lock_t lock;
+
+File ../nss/getXXent.c:
+static char *buffer;
+static __libc_lock_t lock;
+
+File ../nss/getXXent_r.c:
+static service_user *last_nip;
+static __libc_lock_t lock;
+static service_user *nip;
+static service_user *startp;
+static int stayopen_tmp;
+
+File ../signal/allocrtsig.c:
+static int current_rtmax;
+static int current_rtmin;
+
+File ../stdlib/strtol_l.c:
+const unsigned long __strtol_ul_max_tab[35];
+const unsigned char __strtol_ul_rem_tab[35];
+
+File ../sysdeps/gnu/errlist.c:
+const char * const_sys_errlist_internal[135];
+const int _sys_nerr_internal;
+
+File ../sysdeps/gnu/siglist.c:
+const char * const__GI__sys_siglist[65];
+const char * const__new_sys_sigabbrev[65];
+const char * const__new_sys_siglist[65];
+const char * const_new_sys_siglist[65];
+
+File ../sysdeps/gnu/unwind-resume.c:
+void (*__libgcc_s_resume)(struct _Unwind_Exception *);
+static _Unwind_Reason_Code (*libgcc_s_personality)(int, _Unwind_Action, _Unwind_Exception_Class, struct _Unwind_Exception *, struct _Unwind_Context *);
+
+File ../sysdeps/ieee754/dbl-64/wordsize-64/s_modf.c:
+static const double one;
+
+File ../sysdeps/ieee754/dbl-64/wordsize-64/s_scalbn.c:
+static const double huge;
+static const double tiny;
+static const double two54;
+static const double twom54;
+
+File ../sysdeps/ieee754/flt-32/s_frexpf.c:
+static const float two25;
+
+File ../sysdeps/ieee754/flt-32/s_modff.c:
+static const float one;
+
+File ../sysdeps/ieee754/flt-32/s_scalbnf.c:
+static const float huge;
+static const float tiny;
+static const float two25;
+static const float twom25;
+
+File ../sysdeps/ieee754/ldbl-96/s_frexpl.c:
+static const long double two65;
+
+File ../sysdeps/ieee754/ldbl-96/s_modfl.c:
+static const long double one;
+
+File ../sysdeps/posix/gai_strerror.c:
+static const struct {
+    int16_t code;
+    uint16_t idx;
+} msgidx[17];
+static const union msgstr_t msgstr;
+
+File ../sysdeps/posix/getaddrinfo.c:
+static const void *__elf_set___libc_subfreeres_element_fini__;
+static const struct addrinfo default_hints;
+static const struct prefixentry default_labels[8];
+static const struct prefixentry default_precedence[5];
+static const struct scopeentry default_scopes[3];
+static struct timespec gaiconf_mtime;
+static int gaiconf_reload_flag;
+static int gaiconf_reload_flag_ever_set;
+static const struct gaih_typeproto gaih_inet_typeproto[9];
+static const struct prefixentry *labels;
+static const struct gaih_servtuple nullserv;
+static const struct prefixentry *precedence;
+static const struct scopeentry *scopes;
+
+File ../sysdeps/posix/profil.c:
+static size_t nsamples;
+static size_t pc_offset;
+static u_int pc_scale;
+static u_short *samples;
+
+File ../sysdeps/posix/signal.c:
+sigset_t _sigintr;
+
+File ../sysdeps/posix/sprofil.c:
+static struct region default_overflow_region;
+static unsigned int overflow_counter;
+static struct prof_info prof_info;
+
+File ../sysdeps/posix/system.c:
+static struct sigaction intr;
+static __libc_lock_t lock;
+static struct sigaction quit;
+static int sa_refcntr;
+
+File ../sysdeps/posix/tempname.c:
+static const char letters[63];
+
+File ../sysdeps/unix/bsd/getpt.c:
+const char __libc_ptyname1[17];
+const char __libc_ptyname2[17];
+
+File ../sysdeps/unix/clock_gettime.c:
+static hp_timing_t freq;
+
+File ../sysdeps/unix/getlogin.c:
+static char name[33];
+
+File ../sysdeps/unix/sysv/linux/check_pf.c:
+static const void *__elf_set___libc_subfreeres_element_freecache__;
+static struct cached_data *cache;
+static __libc_lock_t lock;
+static struct cached_data noai6ai_cached;
+
+File ../sysdeps/unix/sysv/linux/getsourcefilter.c:
+static const struct {
+    int sol;
+    int af;
+    socklen_t size;
+} sol_map[7];
+
+File ../sysdeps/unix/sysv/linux/ptsname.c:
+static char buffer[30];
+
+File ../sysdeps/unix/sysv/linux/sigstack.c:
+static const char __evoke_link_warning_sigstack[77];
+
+File ../sysdeps/unix/sysv/linux/ttyname.c:
+static char *getttyname_name;
+static char *ttyname_buf;
+
+File ../sysdeps/unix/sysv/linux/x86_64/brk.c:
+void *__curbrk;
+
+File ../sysdeps/unix/sysv/linux/x86_64/init-first.c:
+long (*__vdso_clock_gettime)(clockid_t, struct timespec *);
+long (*__vdso_getcpu)(unsigned int *, unsigned int *, void *);
+
+File ../sysdeps/wordsize-64/../../io/ftw.c:
+static const int ftw_arr[7];
+static const int nftw_arr[7];
+
+File ../sysdeps/x86_64/backtrace.c:
+static const void *__elf_set___libc_subfreeres_element_free_mem__;
+static void *libgcc_handle;
+static _Unwind_Reason_Code (*unwind_backtrace)(_Unwind_Trace_Fn, void *);
+static _Unwind_Word (*unwind_getcfa)(struct _Unwind_Context *);
+static _Unwind_Ptr (*unwind_getip)(struct _Unwind_Context *);
+
+File ../sysdeps/x86_64/cacheinfo.c:
+long __x86_data_cache_size;
+long __x86_data_cache_size_half;
+int __x86_prefetchw;
+long __x86_raw_data_cache_size;
+long __x86_raw_data_cache_size_half;
+long __x86_raw_shared_cache_size;
+long __x86_raw_shared_cache_size_half;
+long __x86_shared_cache_size;
+long __x86_shared_cache_size_half;
+static const struct intel_02_cache_info intel_02_known[68];
+
+File ../sysdeps/x86_64/multiarch/varshift.c:
+const int8_t ___m128i_shift_right[31];
+
+File /build/glibc-t3gR2i/glibc-2.23/build-tree/amd64-libc/stdio-common/errlist-compat.c:
+const int ___sys_nerr_GLIBC_2_1;
+const int ___sys_nerr_GLIBC_2_3;
+const int ___sys_nerr_GLIBC_2_4;
+const char * const__sys_errlist_internal[135];
+const int __sys_nerr_GLIBC_2_1;
+const int __sys_nerr_GLIBC_2_3;
+const int __sys_nerr_GLIBC_2_4;
+const int __sys_nerr_internal;
+static const char __evoke_link_warning_sys_errlist[68];
+static const char __evoke_link_warning_sys_nerr[65];
+
+File C-address.c:
+const struct __locale_data _nl_C_LC_ADDRESS;
+
+File C-collate.c:
+const struct __locale_data _nl_C_LC_COLLATE;
+static const char collseqmb[256];
+static const uint32_t collseqwc[263];
+
+File C-ctype.c:
+const struct __locale_data _nl_C_LC_CTYPE;
+const char _nl_C_LC_CTYPE_class[768];
+const char _nl_C_LC_CTYPE_class32[1024];
+const struct {
+    uint32_t isctype_data[8];
+    uint32_t header[5];
+    uint32_t level1[1];
+    uint32_t level2[1];
+    uint32_t level3[4];
+} _nl_C_LC_CTYPE_class_alnum;
+const struct {
+    uint32_t isctype_data[8];
+    uint32_t header[5];
+    uint32_t level1[1];
+    uint32_t level2[2];
+    uint32_t level3[2];
+} _nl_C_LC_CTYPE_class_alpha;
+const struct {
+    uint32_t isctype_data[8];
+    uint32_t header[5];
+    uint32_t level1[1];
+    uint32_t level2[1];
+    uint32_t level3[2];
+} _nl_C_LC_CTYPE_class_blank;
+const struct {
+    uint32_t isctype_data[8];
+    uint32_t header[5];
+    uint32_t level1[1];
+    uint32_t level2[1];
+    uint32_t level3[4];
+} _nl_C_LC_CTYPE_class_cntrl;
+const struct {
+    uint32_t isctype_data[8];
+    uint32_t header[5];
+    uint32_t level1[1];
+    uint32_t level2[1];
+    uint32_t level3[2];
+} _nl_C_LC_CTYPE_class_digit;
+const struct {
+    uint32_t isctype_data[8];
+    uint32_t header[5];
+    uint32_t level1[1];
+    uint32_t level2[1];
+    uint32_t level3[4];
+} _nl_C_LC_CTYPE_class_graph;
+const struct {
+    uint32_t isctype_data[8];
+    uint32_t header[5];
+    uint32_t level1[1];
+    uint32_t level2[2];
+    uint32_t level3[2];
+} _nl_C_LC_CTYPE_class_lower;
+const struct {
+    uint32_t isctype_data[8];
+    uint32_t header[5];
+    uint32_t level1[1];
+    uint32_t level2[1];
+    uint32_t level3[4];
+} _nl_C_LC_CTYPE_class_print;
+const struct {
+    uint32_t isctype_data[8];
+    uint32_t header[5];
+    uint32_t level1[1];
+    uint32_t level2[1];
+    uint32_t level3[4];
+} _nl_C_LC_CTYPE_class_punct;
+const struct {
+    uint32_t isctype_data[8];
+    uint32_t header[5];
+    uint32_t level1[1];
+    uint32_t level2[1];
+    uint32_t level3[2];
+} _nl_C_LC_CTYPE_class_space;
+const struct {
+    uint32_t isctype_data[8];
+    uint32_t header[5];
+    uint32_t level1[1];
+    uint32_t level2[2];
+    uint32_t level3[2];
+} _nl_C_LC_CTYPE_class_upper;
+const struct {
+    uint32_t isctype_data[8];
+    uint32_t header[5];
+    uint32_t level1[1];
+    uint32_t level2[1];
+    uint32_t level3[4];
+} _nl_C_LC_CTYPE_class_xdigit;
+const struct {
+    uint32_t header[5];
+    uint32_t level1[1];
+    uint32_t level2[4];
+    int32_t level3[32];
+} _nl_C_LC_CTYPE_map_tolower;
+const struct {
+    uint32_t header[5];
+    uint32_t level1[1];
+    uint32_t level2[4];
+    int32_t level3[32];
+} _nl_C_LC_CTYPE_map_toupper;
+const uint32_t _nl_C_LC_CTYPE_tolower[384];
+const uint32_t _nl_C_LC_CTYPE_toupper[384];
+const struct {
+    uint32_t header[5];
+    uint32_t level1[1];
+    uint32_t level2[8];
+    int8_t level3[33];
+} _nl_C_LC_CTYPE_width;
+
+File C-identification.c:
+const struct __locale_data _nl_C_LC_IDENTIFICATION;
+
+File C-measurement.c:
+const struct __locale_data _nl_C_LC_MEASUREMENT;
+
+File C-messages.c:
+const struct __locale_data _nl_C_LC_MESSAGES;
+
+File C-monetary.c:
+const struct __locale_data _nl_C_LC_MONETARY;
+static const uint32_t conversion_rate[2];
+static const char not_available[2];
+
+File C-name.c:
+const struct __locale_data _nl_C_LC_NAME;
+
+File C-numeric.c:
+const struct __locale_data _nl_C_LC_NUMERIC;
+
+File C-paper.c:
+const struct __locale_data _nl_C_LC_PAPER;
+
+File C-telephone.c:
+const struct __locale_data _nl_C_LC_TELEPHONE;
+
+File C-time.c:
+const struct __locale_data _nl_C_LC_TIME;
+
+File C-translit.h:
+static const uint32_t translit_from_idx[1353];
+static const wchar_t translit_from_tbl[2706];
+static const uint32_t translit_to_idx[1353];
+static const wchar_t translit_to_tbl[4797];
+
+File C_name.c:
+const char _nl_C_codeset[15];
+const char _nl_C_name[2];
+const char _nl_POSIX_name[6];
+
+File SYS_libc.c:
+const char __GI__libc_intl_domainname[5];
+const char _libc_intl_domainname[5];
+
+File XXX-lookup.c:
+service_user *__nss_aliases_database;
+service_user *__nss_ethers_database;
+service_user *__nss_group_database;
+service_user *__nss_gshadow_database;
+service_user *__nss_hosts_database;
+service_user *__nss_netgroup_database;
+service_user *__nss_networks_database;
+service_user *__nss_passwd_database;
+service_user *__nss_protocols_database;
+service_user *__nss_publickey_database;
+service_user *__nss_rpc_database;
+service_user *__nss_services_database;
+service_user *__nss_shadow_database;
+
+File a64l.c:
+static const char a64l_table[77];
+
+File abort.c:
+struct abort_msg_s *__GI___abort_msg;
+struct abort_msg_s *__abort_msg;
+static __libc_lock_recursive_t lock;
+static int stage;
+
+File arena.c:
+int __libc_malloc_initialized;
+static const void *__elf_set___libc_thread_subfreeres_element_arena_thread_freeres__;
+static char *aligned_heap_area;
+static unsigned long arena_mem;
+static mstate free_list;
+static mutex_t free_list_lock;
+static mutex_t list_lock;
+static size_t narenas;
+static mstate thread_arena;
+
+File argp-ba.c:
+const char *argp_program_bug_address;
+
+File argp-eexst.c:
+error_t argp_err_exit_status;
+
+File argp-help.c:
+static const struct uparam_name uparam_names[9];
+static struct uparams uparams;
+
+File argp-parse.c:
+static volatile int _argp_hang;
+static const struct argp argp_default_argp;
+static const struct argp_option argp_default_options[5];
+static const struct argp argp_version_argp;
+static const struct argp_option argp_version_options[2];
+
+File argp-pv.c:
+const char *argp_program_version;
+
+File argp-pvh.c:
+void (*argp_program_version_hook)(FILE * restrict, struct argp_state * restrict);
+
+File asctime.c:
+static const char format[32];
+static char result[114];
+
+File auth_des.c:
+static const struct auth_ops authdes_ops;
+
+File auth_none.c:
+static struct authnone_private_s authnone_private;
+static pthread_once_t authnone_private_guard;
+static const struct auth_ops ops;
+
+File auth_unix.c:
+static const struct auth_ops auth_unix_ops;
+
+File base64.c:
+static const char Base64[65];
+static const char Pad64;
+
+File bindrsvprt.c:
+static int blacklist_read;
+static int *list;
+static int list_size;
+static __libc_lock_t lock;
+
+File bomb.c:
+FILE *infile;
+
+File c16rtomb.c:
+static mbstate_t state;
+
+File categories.def:
+static const enum value_type _nl_value_type_LC_ADDRESS[13];
+static const enum value_type _nl_value_type_LC_COLLATE[19];
+static const enum value_type _nl_value_type_LC_CTYPE[72];
+static const enum value_type _nl_value_type_LC_IDENTIFICATION[16];
+static const enum value_type _nl_value_type_LC_MEASUREMENT[2];
+static const enum value_type _nl_value_type_LC_MESSAGES[5];
+static const enum value_type _nl_value_type_LC_MONETARY[46];
+static const enum value_type _nl_value_type_LC_NAME[7];
+static const enum value_type _nl_value_type_LC_NUMERIC[6];
+static const enum value_type _nl_value_type_LC_PAPER[3];
+static const enum value_type _nl_value_type_LC_TELEPHONE[5];
+static const enum value_type _nl_value_type_LC_TIME[111];
+
+File cfsetspeed.c:
+static const struct speed_struct speeds[32];
+
+File clnt_perr.c:
+static const void *__elf_set___libc_subfreeres_element_free_mem__;
+static const struct auth_errtab auth_errlist[8];
+static const char auth_errstr[198];
+static const struct rpc_errtab rpc_errlist[18];
+static const char rpc_errstr[451];
+
+File clnt_raw.c:
+static const struct clnt_ops client_ops;
+
+File clnt_tcp.c:
+static const struct clnt_ops tcp_ops;
+
+File clnt_udp.c:
+static const struct clnt_ops udp_ops;
+
+File clnt_unix.c:
+static const struct clnt_ops unix_ops;
+
+File create_xid.c:
+static struct drand48_data __rpc_lrand48_data;
+static __libc_lock_t createxid_lock;
+static pid_t is_initialized;
+
+File ctype-info.c:
+const __uint32_t *__ctype32_b;
+const __uint32_t *__ctype32_tolower;
+const __uint32_t *__ctype32_toupper;
+const unsigned short *__ctype_b;
+const __int32_t *__ctype_tolower;
+const __int32_t *__ctype_toupper;
+const uint16_t *__libc_tsd_CTYPE_B;
+const int32_t *__libc_tsd_CTYPE_TOLOWER;
+const int32_t *__libc_tsd_CTYPE_TOUPPER;
+
+File cxa_at_quick_exit.c:
+struct exit_function_list *__quick_exit_funcs;
+static struct exit_function_list initial_quick;
+
+File cxa_atexit.c:
+struct exit_function_list *__exit_funcs;
+uint64_t __new_exitfn_called;
+static struct exit_function_list initial;
+static __libc_lock_t lock;
+
+File cxa_thread_atexit_impl.c:
+static void * const dso_symbol_cache;
+static struct link_map *lm_cache;
+static struct dtor_list *tls_dtor_list;
+
+File dcigettext.c:
+const char __GI__nl_default_dirname[18];
+const char *_nl_current_default_domain;
+const char _nl_default_default_domain[9];
+const char _nl_default_dirname[18];
+struct binding *_nl_domain_bindings;
+__libc_rwlock_t _nl_state_lock;
+static const void *__elf_set___libc_subfreeres_element_free_mem__;
+static void *root;
+static struct transmem_list *transmem_list;
+static __libc_rwlock_t tree_lock;
+
+File des_impl.c:
+static const uint32_t des_SPtrans[8][64];
+static const uint32_t des_skb[8][64];
+static const char shifts2[16];
+
+File des_soft.c:
+static const char partab[128];
+
+File dl-cache.c:
+static struct cache_file *cache;
+static struct cache_file_new *cache_new;
+static size_t cachesize;
+
+File dl-debug.c:
+struct r_debug _r_debug;
+
+File dl-error.c:
+static const char _dl_out_of_memory[14];
+static receiver_fct receiver;
+
+File dl-libc.c:
+struct dl_open_hook *__GI__dl_open_hook;
+struct dl_open_hook *_dl_open_hook;
+static const void *__elf_set___libc_subfreeres_element_free_mem__;
+
+File dl-load.c:
+int __stack_prot;
+static const struct r_strlenpair *capstr;
+static struct r_search_path_struct env_path_list;
+static size_t max_capstrlen;
+static size_t max_dirnamelen;
+static size_t ncapstr;
+static struct r_search_path_struct rtld_search_dirs;
+static const char system_dirs[66];
+static const size_t system_dirs_len[4];
+
+File dl-minimal.c:
+const char __GI__itoa_lower_digits[16];
+const char _itoa_lower_digits[16];
+static void *alloc_end;
+static void *alloc_last_block;
+static void *alloc_ptr;
+
+File dl-profile.c:
+static struct here_cg_arc_record *data;
+static volatile uint32_t fromidx;
+static uint32_t fromlimit;
+static struct here_fromstruct *froms;
+static unsigned int log_hashfraction;
+static uintptr_t lowpc;
+static uint32_t narcs;
+static volatile uint32_t *narcsp;
+static int running;
+static size_t textsize;
+static volatile uint16_t *tos;
+
+File drand48-iter.c:
+struct drand48_data __libc_drand48_data;
+
+File dso_handle.c:
+const void * const __dso_handle;
+
+File efgcvt.c:
+static char ecvt_buffer[20];
+static char fcvt_buffer[20];
+static char *fcvt_bufptr;
+static char qecvt_buffer[33];
+static char qfcvt_buffer[33];
+static char *qfcvt_bufptr;
+
+File environ.c:
+char **__environ;
+char **_environ;
+char **environ;
+
+File errno.c:
+int __libc_errno;
+int errno;
+int rtld_errno;
+
+File error.c:
+unsigned int error_message_count;
+int error_one_per_line;
+void (*error_print_progname)(void);
+
+File fgetgrent.c:
+static char *buffer;
+static __libc_lock_t lock;
+
+File fgetpwent.c:
+static char *buffer;
+static __libc_lock_t lock;
+
+File fgetsgent.c:
+static char *buffer;
+static __libc_lock_t lock;
+
+File fgetspent.c:
+static char *buffer;
+static __libc_lock_t lock;
+
+File fileops.c:
+const struct _IO_jump_t _IO_file_jumps;
+const struct _IO_jump_t _IO_file_jumps_maybe_mmap;
+const struct _IO_jump_t _IO_file_jumps_mmap;
+const struct _IO_jump_t __GI__IO_file_jumps;
+
+File finddomain.c:
+static struct loaded_l10nfile *_nl_loaded_domains;
+
+File findlocale.c:
+const char _nl_default_locale_path[16];
+struct loaded_l10nfile *_nl_locale_file_list[13];
+
+File fmtmsg.c:
+static const void *__elf_set___libc_subfreeres_element_free_mem__;
+static const struct severity_info errorsev;
+static const struct severity_info haltsev;
+static const struct severity_info infosev;
+static const struct {
+    uint32_t len;
+    const char name[12];
+} keywords[5];
+static __libc_lock_t lock;
+static const struct severity_info nosev;
+static int print;
+static struct severity_info *severity_list;
+static const struct severity_info warningsev;
+
+File fnmatch.c:
+static int posixly_correct;
+
+File forward.c:
+struct pthread_functions __libc_pthread_functions;
+int __libc_pthread_functions_init;
+
+File fpioconst.c:
+const mp_limb_t __tens[1725];
+const struct mp_power _fpioconst_pow10[15];
+
+File fpu_control.c:
+fpu_control_t __fpu_control;
+
+File fstab.c:
+static const void *__elf_set___libc_subfreeres_element_fstab_free__;
+static struct fstab_state fstab_state;
+
+File gconv_builtin.c:
+static const struct builtin_map map[12];
+
+File gconv_cache.c:
+static const void *__elf_set___libc_subfreeres_element_free_mem__;
+static int cache_malloced;
+static size_t cache_size;
+static void *gconv_cache;
+
+File gconv_conf.c:
+size_t __gconv_max_path_elem_len;
+struct path_elem *__gconv_path_elem;
+const char *__gconv_path_envvar;
+static const void *__elf_set___libc_subfreeres_element_free_mem__;
+static const char builtin_aliases[999];
+static struct gconv_module builtin_modules[12];
+static const char default_gconv_path[32];
+static const struct path_elem empty_path_elem;
+static const char gconv_conf_filename[14];
+static const char gconv_module_ext[4];
+
+File gconv_db.c:
+void *__gconv_alias_db;
+__libc_lock_t __gconv_lock;
+struct gconv_module *__gconv_modules_db;
+static const void *__elf_set___libc_subfreeres_element_free_mem__;
+static void *known_derivations;
+static pthread_once_t once;
+
+File gconv_dl.c:
+static const void *__elf_set___libc_subfreeres_element_free_mem__;
+static void *loaded;
+static struct __gconv_loaded_object *release_handle;
+
+File genops.c:
+static int _IO_list_all_stamp;
+static const void *__elf_set___libc_atexit_element__IO_cleanup__;
+static const void *__elf_set___libc_subfreeres_element_buffer_free__;
+static _Bool dealloc_buffers;
+static _IO_FILE *freeres_list;
+static _IO_lock_t list_all_lock;
+static _IO_FILE *run_fp;
+
+File getdate.c:
+int getdate_err;
+
+File gethnamaddr.c:
+static char *h_addr_ptrs[36];
+static struct hostent host;
+static u_char host_addr[16];
+static char *host_aliases[35];
+static char hostbuf[8192];
+static FILE *hostf;
+static int stayopen;
+
+File getnameinfo.c:
+static char *domain;
+
+File getnetgrent.c:
+static char *buffer;
+
+File getnetgrent_r.c:
+static struct __netgrent dataset;
+static __libc_lock_t lock;
+
+File getopt.c:
+char *optarg;
+int opterr;
+int optind;
+int optopt;
+static struct _getopt_data getopt_data;
+
+File getpw.c:
+static const char __evoke_link_warning_getpw[58];
+
+File gets_chk.c:
+static const char __evoke_link_warning___gets_chk[57];
+
+File getttyent.c:
+static FILE *tf;
+static char zapchar;
+
+File getusershell.c:
+static char **curshell;
+static const char *okshells[3];
+static char **shells;
+static char *strings;
+
+File getutent.c:
+static struct utmp *buffer;
+
+File getutent_r.c:
+const struct utfuncs *__libc_utmp_jump_table;
+__libc_lock_t __libc_utmp_lock;
+const struct utfuncs __libc_utmp_unknown_functions;
+
+File getutid.c:
+static struct utmp *buffer;
+
+File getutline.c:
+static struct utmp *buffer;
+
+File getwd_chk.c:
+static const char __evoke_link_warning_getwd[58];
+
+File global-locale.c:
+__locale_t __libc_tsd_LOCALE;
+struct __locale_struct _nl_global_locale;
+
+File gmon.c:
+struct __bb *__bb_head;
+struct gmonparam _gmonparam;
+static int s_scale;
+
+File herrno.c:
+int __h_errno;
+int __libc_h_errno;
+
+File herror.c:
+const char * consth_errlist[5];
+const int h_nerr;
+
+File hooks.c:
+static int disallow_malloc_check;
+static int using_malloc_checking;
+
+File hsearch.c:
+static const void *__elf_set___libc_subfreeres_element___hdestroy__;
+static struct hsearch_data htab;
+
+File idn-stub.c:
+static const void *__elf_set___libc_subfreeres_element_unload_libidn__;
+static void *h;
+static int (*to_ascii_lz)(const char *, char **, int);
+static int (*to_unicode_lzlz)(const char *, char **, int);
+
+File in6_addr.c:
+const struct in6_addr __GI___in6addr_any;
+const struct in6_addr __GI___in6addr_loopback;
+const struct in6_addr __GI_in6addr_any;
+const struct in6_addr __GI_in6addr_loopback;
+const struct in6_addr __in6addr_any;
+const struct in6_addr __in6addr_loopback;
+const struct in6_addr in6addr_any;
+const struct in6_addr in6addr_loopback;
+
+File inet6_option.c:
+static const char __evoke_link_warning_inet6_option_alloc[60];
+static const char __evoke_link_warning_inet6_option_append[61];
+static const char __evoke_link_warning_inet6_option_find[59];
+static const char __evoke_link_warning_inet6_option_init[59];
+static const char __evoke_link_warning_inet6_option_next[59];
+static const char __evoke_link_warning_inet6_option_space[60];
+
+File inet_ntoa.c:
+static char buffer[18];
+
+File init-misc.c:
+char *__progname;
+char *__progname_full;
+char *program_invocation_name;
+char *program_invocation_short_name;
+
+File initgroups.c:
+service_user *__nss_initgroups_database;
+static _Bool use_initgroups_entry;
+
+File interp.c:
+const char __invoke_dynamic_linker__[28];
+
+File iofopncook.c:
+static const struct _IO_jump_t _IO_cookie_jumps;
+
+File iofwide.c:
+const struct _IO_codecvt __libio_codecvt;
+
+File iogets.c:
+static const char __evoke_link_warning_gets[57];
+
+File iopadn.c:
+static const char blanks[16];
+static const char zeroes[16];
+
+File iopopen.c:
+static const struct _IO_jump_t _IO_proc_jumps;
+static struct _IO_proc_file *proc_file_chain;
+static _IO_lock_t proc_file_chain_lock;
+
+File iowpadn.c:
+static const wchar_t blanks[16];
+static const wchar_t zeroes[16];
+
+File itoa-digits.c:
+const char __GI__itoa_lower_digits[36];
+const char _itoa_lower_digits[36];
+
+File itoa-udigits.c:
+const char __GI__itoa_upper_digits[36];
+const char _itoa_upper_digits[36];
+
+File itowa-digits.c:
+const wchar_t _itowa_lower_digits[36];
+const wchar_t _itowa_upper_digits[36];
+
+File key_call.c:
+cryptkeyres *(*__key_decryptsession_pk_LOCAL)(uid_t, char *);
+cryptkeyres *(*__key_encryptsession_pk_LOCAL)(uid_t, char *);
+des_block *(*__key_gendes_LOCAL)(uid_t, char *);
+static __libc_lock_t keycall_lock;
+static const struct timeval tottimeout;
+static const struct timeval trytimeout;
+
+File l64a.c:
+static const char conv_table[64];
+
+File lckpwdf.c:
+static __libc_lock_t lock;
+static int lock_fd;
+
+File libc_multiple_threads.c:
+int __libc_multiple_threads;
+
+File libc_pthread_init.c:
+unsigned long *__fork_generation_pointer;
+static const void *__elf_set___libc_subfreeres_element_freeres_libptread__;
+
+File loadarchive.c:
+static const char archfname[31];
+static struct stat64 archive_stat;
+static struct locale_in_archive *archloaded;
+static struct archmapped *archmapped;
+static struct archmapped headmap;
+
+File loadlocale.c:
+static const size_t _nl_category_num_items[13];
+static const enum value_type * const_nl_value_types[13];
+
+File loadmsgcat.c:
+int _nl_msg_cat_cntr;
+
+File localealias.c:
+static __libc_lock_t lock;
+static struct alias_map *map;
+static size_t maxmap;
+static size_t nmap;
+static char *string_space;
+static size_t string_space_act;
+static size_t string_space_max;
+
+File localtime.c:
+struct tm _tmbuf;
+
+File malloc.c:
+void (*__after_morecore_hook)(void);
+void (*__free_hook)(void *, const void *);
+void *(*__malloc_hook)(size_t, const void *);
+void (*__malloc_initialize_hook)(void);
+void *(*__memalign_hook)(size_t, size_t, const void *);
+void *(*__morecore)(ptrdiff_t);
+void *(*__realloc_hook)(void *, size_t, const void *);
+static int check_action;
+static size_t global_max_fast;
+static struct malloc_state main_arena;
+static struct malloc_par mp_;
+static int perturb_byte;
+
+File mblen.c:
+static mbstate_t state;
+
+File mbrlen.c:
+static mbstate_t internal;
+
+File mbrtoc16.c:
+static mbstate_t state;
+
+File mbrtowc.c:
+static mbstate_t state;
+
+File mbsnrtowcs.c:
+static mbstate_t state;
+
+File mbsrtowcs.c:
+static mbstate_t state;
+
+File mcheck.c:
+static void (*abortfunc)(enum mcheck_status);
+static int mcheck_used;
+static void (*old_free_hook)(void *, const void *);
+static void *(*old_malloc_hook)(size_t, const void *);
+static void *(*old_memalign_hook)(size_t, size_t, const void *);
+static void *(*old_realloc_hook)(void *, size_t, const void *);
+static int pedantic;
+static struct hdr *root;
+
+File memstream.c:
+static const struct _IO_jump_t _IO_mem_jumps;
+
+File mktemp.c:
+static const char __evoke_link_warning_mktemp[68];
+
+File mktime.c:
+const unsigned short __mon_yday[2][13];
+static time_t localtime_offset;
+
+File mntent.c:
+static char *getmntent_buffer;
+
+File mtrace.c:
+void *mallwatch;
+static __libc_lock_t lock;
+static const char mallenv[13];
+static char *malloc_trace_buffer;
+static FILE *mallstream;
+static void (*tr_old_free_hook)(void *, const void *);
+static void *(*tr_old_malloc_hook)(size_t, const void *);
+static void *(*tr_old_memalign_hook)(size_t, size_t, const void *);
+static void *(*tr_old_realloc_hook)(void *, size_t, const void *);
+
+File netname.c:
+static const char OPSYS[5];
+
+File ns_name.c:
+static const char digits[11];
+static const char digitvalue[256];
+
+File ns_parse.c:
+const struct _ns_flagdata _ns_flagdata[16];
+
+File nscd_getgr_r.c:
+struct locked_map_ptr __gr_map_handle;
+int __nss_not_use_nscd_group;
+static const void *__elf_set___libc_subfreeres_element_gr_map_free__;
+
+File nscd_gethst_r.c:
+struct locked_map_ptr __hst_map_handle;
+int __nss_have_localdomain;
+int __nss_not_use_nscd_hosts;
+static const void *__elf_set___libc_subfreeres_element_hst_map_free__;
+
+File nscd_getpw_r.c:
+int __nss_not_use_nscd_passwd;
+static const void *__elf_set___libc_subfreeres_element_pw_map_free__;
+static struct locked_map_ptr map_handle;
+
+File nscd_getserv_r.c:
+int __nss_not_use_nscd_services;
+struct locked_map_ptr __serv_map_handle;
+static const void *__elf_set___libc_subfreeres_element_serv_map_free__;
+
+File nscd_netgroup.c:
+int __nss_not_use_nscd_netgroup;
+static const void *__elf_set___libc_subfreeres_element_pw_map_free__;
+static struct locked_map_ptr map_handle;
+
+File nss_dns/dns-canon.c:
+static const short qtypes[2];
+
+File nss_files/files-XXX.c:
+static __libc_lock_t lock;
+static FILE *stream;
+
+File nss_files/files-alias.c:
+static __libc_lock_t lock;
+static FILE *stream;
+
+File nss_files/files-init.c:
+static union {
+    struct traced_file file;
+    char buf[4147];
+} grp_traced_file;
+static union {
+    struct traced_file file;
+    char buf[4147];
+} hst_traced_file;
+static union {
+    struct traced_file file;
+    char buf[4150];
+} netgr_traced_file;
+static union {
+    struct traced_file file;
+    char buf[4148];
+} pwd_traced_file;
+static union {
+    struct traced_file file;
+    char buf[4153];
+} resolv_traced_file;
+static union {
+    struct traced_file file;
+    char buf[4150];
+} serv_traced_file;
+
+File nsswitch.c:
+_Bool __nss_database_custom[14];
+static const void *__elf_set___libc_subfreeres_element_free_defconfig__;
+static const void *__elf_set___libc_subfreeres_element_free_mem__;
+static const char * const __nss_shlib_revision;
+static const struct {
+    const char name[10];
+    service_user **dbp;
+} databases[14];
+static name_database_entry *defconfig_entries;
+static _Bool is_nscd;
+static __libc_lock_t lock;
+static void (*nscd_init_cb)(size_t, struct traced_file *);
+static name_database *service_table;
+
+File obprintf.c:
+const struct _IO_jump_t _IO_obstack_jumps;
+
+File obstack.c:
+struct obstack *_obstack_compat;
+void (*obstack_alloc_failed_handler)(void);
+int obstack_exit_failure;
+
+File plural-exp.c:
+const struct expression __gettext_germanic_plural;
+static const struct expression plone;
+static const struct expression plvar;
+
+File plural.c:
+static const yytype_int8 yycheck[55];
+static const yytype_uint8 yydefact[27];
+static const yytype_int8 yydefgoto[3];
+static const yytype_int8 yypact[27];
+static const yytype_int8 yypgoto[3];
+static const yytype_uint8 yyr1[14];
+static const yytype_uint8 yyr2[14];
+static const yytype_uint8 yystos[27];
+static const yytype_uint8 yytable[55];
+static const yytype_uint8 yytranslate[263];
+
+File pmap_clnt.c:
+static const struct timeval timeout;
+static const struct timeval tottimeout;
+
+File pmap_rmt.c:
+static const struct timeval timeout;
+
+File psiginfo-define.h:
+static const uint8_t codes_11[2];
+static const uint8_t codes_17[6];
+static const uint8_t codes_29[6];
+static const uint8_t codes_4[8];
+static const uint8_t codes_5[2];
+static const uint8_t codes_7[3];
+static const uint8_t codes_8[8];
+static const union codestrs_t_11 codestrs_11;
+static const union codestrs_t_17 codestrs_17;
+static const union codestrs_t_29 codestrs_29;
+static const union codestrs_t_4 codestrs_4;
+static const union codestrs_t_5 codestrs_5;
+static const union codestrs_t_7 codestrs_7;
+static const union codestrs_t_8 codestrs_8;
+
+File random.c:
+static __libc_lock_t lock;
+static int32_t randtbl[32];
+static struct random_data unsafe_state;
+
+File random_r.c:
+static const struct random_poly_info random_poly_info;
+
+File rcmd.c:
+int __check_rhosts_file;
+char *__rcmd_errstr;
+static char *ahostbuf;
+
+File reg-modifier.c:
+struct printf_modifier_record **__printf_modifier_table;
+static const void *__elf_set___libc_subfreeres_element_free_mem__;
+static __libc_lock_t lock;
+static int next_bit;
+
+File reg-printf.c:
+printf_arginfo_size_function **__printf_arginfo_table;
+printf_function **__printf_function_table;
+static __libc_lock_t lock;
+
+File reg-type.c:
+printf_va_arg_function **__printf_va_arg_table;
+static __libc_lock_t lock;
+static int pa_next_type;
+
+File regcomp.c:
+const char __re_error_msgid[369];
+const size_t __re_error_msgid_idx[17];
+reg_syntax_t re_syntax_options;
+static const void *__elf_set___libc_subfreeres_element_free_mem__;
+static struct re_pattern_buffer re_comp_buf;
+static const bitset_word_t utf8_sb_map[4];
+
+File regex.c:
+int re_max_failures;
+static const char __evoke_link_warning_re_max_failures[61];
+
+File regexp.c:
+char *loc1;
+char *loc2;
+char *locs;
+
+File register-atfork.c:
+struct fork_handler *__fork_handlers;
+int __fork_lock;
+static const void *__elf_set___libc_subfreeres_element_free_mem__;
+static struct fork_handler_pool fork_handler_pool;
+
+File res_data.c:
+const char *__GI__res_opcodes[16];
+const char *_res_opcodes[16];
+
+File res_debug.c:
+const struct res_sym __GI___p_class_syms[7];
+const struct res_sym __GI___p_type_syms[46];
+const struct res_sym __p_cert_syms[6];
+const struct res_sym __p_class_syms[7];
+const struct res_sym __p_default_section_syms[5];
+const struct res_sym __p_key_syms[6];
+const struct res_sym __p_rcode_syms[16];
+const struct res_sym __p_type_syms[46];
+const struct res_sym __p_update_section_syms[5];
+static const unsigned int poweroften[10];
+
+File res_hconf.c:
+struct hconf _res_hconf;
+static const struct cmd cmd[7];
+static struct netaddr *ifaddrs;
+
+File res_init.c:
+unsigned long long __res_initstamp;
+static const void *__elf_set___libc_subfreeres_element_res_thread_freeres__;
+static const void *__elf_set___libc_thread_subfreeres_element_res_thread_freeres__;
+static const char sort_mask_chars[3];
+
+File res_libc.c:
+struct __res_state *__libc_resp;
+struct __res_state *__resp;
+struct __res_state _res;
+static __libc_lock_t lock;
+
+File rexec.c:
+int rexecoptions;
+static char *ahostbuf;
+
+File rpc_common.c:
+struct opaque_auth __GI__null_auth;
+struct opaque_auth _null_auth;
+struct rpc_createerr rpc_createerr;
+fd_set svc_fdset;
+int svc_max_pollfd;
+struct pollfd *svc_pollfd;
+
+File rpc_prot.c:
+static const struct xdr_discrim reply_dscrm[3];
+
+File rpc_thread.c:
+static const void *__elf_set___libc_subfreeres_element___rpc_thread_destroy__;
+static const void *__elf_set___libc_thread_subfreeres_element___rpc_thread_destroy__;
+static struct rpc_thread_variables __libc_tsd_RPC_VARS_mem;
+static struct rpc_thread_variables *thread_rpc_vars;
+
+File rtld.c:
+char **__GI__dl_argv;
+uintptr_t __pointer_chk_guard_local;
+int _dl_argc;
+char **_dl_argv;
+unsigned int _dl_skip_args;
+struct rtld_global _rtld_global;
+struct rtld_global_ro _rtld_global_ro;
+struct rtld_global _rtld_local;
+struct rtld_global_ro _rtld_local_ro;
+static struct libname_list _dl_rtld_libname;
+static struct libname_list _dl_rtld_libname2;
+static int any_debug;
+static struct audit_list *audit_list;
+static const char *library_path;
+static hp_timing_t load_time;
+static const char *preloadlist;
+static hp_timing_t relocate_time;
+static hp_timing_t start_time;
+static _Bool tls_init_tp_called;
+static int version_info;
+
+File ruserpass.c:
+static FILE *cfile;
+static const char tokstr[53];
+static const struct toktab toktab[7];
+static char tokval[100];
+
+File setenv.c:
+static const void *__elf_set___libc_subfreeres_element_free_mem__;
+static __libc_lock_t envlock;
+static void *known_values;
+static char **last_environ;
+
+File setlocale.c:
+__libc_rwlock_t __libc_setlocale_lock;
+const uint8_t _nl_category_name_idxs[13];
+const uint8_t _nl_category_name_sizes[13];
+const union catnamestr_t _nl_category_names;
+static void (* const_nl_category_postload[13])(void);
+
+File sgetsgent.c:
+static __libc_lock_t lock;
+
+File sgetspent.c:
+static __libc_lock_t lock;
+
+File sofini.c:
+static const ui32 __FRAME_END__[1];
+
+File stdfiles.c:
+struct _IO_FILE_plus _IO_2_1_stderr_;
+struct _IO_FILE_plus _IO_2_1_stdin_;
+struct _IO_FILE_plus _IO_2_1_stdout_;
+struct _IO_FILE_plus *_IO_list_all;
+struct _IO_FILE_plus *__GI__IO_list_all;
+static _IO_lock_t _IO_stdfile_0_lock;
+static _IO_lock_t _IO_stdfile_1_lock;
+static _IO_lock_t _IO_stdfile_2_lock;
+static struct _IO_wide_data _IO_wide_data_0;
+static struct _IO_wide_data _IO_wide_data_1;
+static struct _IO_wide_data _IO_wide_data_2;
+
+File stdio.c:
+struct _IO_FILE *_IO_stderr;
+struct _IO_FILE *_IO_stdin;
+struct _IO_FILE *_IO_stdout;
+_IO_FILE *stderr;
+_IO_FILE *stdin;
+_IO_FILE *stdout;
+
+File strerror.c:
+static char *buf;
+
+File strerror_l.c:
+static const void *__elf_set___libc_subfreeres_element_strerror_thread_freeres__;
+static const void *__elf_set___libc_thread_subfreeres_element_strerror_thread_freeres__;
+static char *last_value;
+
+File strops.c:
+const struct _IO_jump_t _IO_str_jumps;
+
+File strsignal.c:
+static __libc_key_t key;
+static char local_buf[100];
+static char *static_buf;
+
+File svc_auth.c:
+static const struct {
+    enum auth_stat (*authenticator)(struct svc_req *, struct rpc_msg *);
+} svcauthsw[4];
+
+File svc_raw.c:
+static const struct xp_ops server_ops;
+
+File svc_tcp.c:
+static const struct xp_ops svctcp_op;
+static const struct xp_ops svctcp_rendezvous_op;
+
+File svc_udp.c:
+static const struct xp_ops svcudp_op;
+
+File svc_unix.c:
+static struct cmessage cm;
+static const struct xp_ops svcunix_op;
+static const struct xp_ops svcunix_rendezvous_op;
+
+File svcauth_des.c:
+struct {
+    u_long ncachehits;
+    u_long ncachereplays;
+    u_long ncachemisses;
+} svcauthdes_stats;
+
+File tempnam.c:
+static const char __evoke_link_warning_tempnam[56];
+
+File tens_in_limb.c:
+const mp_limb_t _tens_in_limb[20];
+
+File tmpnam.c:
+static const char __evoke_link_warning_tmpnam[55];
+static char tmpnam_buffer[20];
+
+File tmpnam_r.c:
+static const char __evoke_link_warning_tmpnam_r[57];
+
+File tzfile.c:
+int __use_tzfile;
+static struct leap *leaps;
+static size_t num_leaps;
+static size_t num_transitions;
+static size_t num_types;
+static long rule_dstoff;
+static long rule_stdoff;
+static time_t *transitions;
+static unsigned char *type_idxs;
+static struct ttinfo *types;
+static dev_t tzfile_dev;
+static ino64_t tzfile_ino;
+static time_t tzfile_mtime;
+static char *tzspec;
+static char *zone_names;
+
+File tzset.c:
+int __daylight;
+long __timezone;
+char *__tzname[2];
+size_t __tzname_cur_max;
+int daylight;
+long timezone;
+char *tzname[2];
+static const void *__elf_set___libc_subfreeres_element_free_mem__;
+static char *old_tz;
+static tz_rule tz_rules[2];
+static __libc_lock_t tzset_lock;
+static struct tzstring_l *tzstring_list;
+
+File utmpname.c:
+const char *__libc_utmp_file_name;
+static const char default_file_name[14];
+
+File valid_field.c:
+const char __nss_invalid_field_characters[3];
+
+File valid_list_field.c:
+static const char invalid_characters[4];
+
+File version.c:
+static const char __libc_release[7];
+static const char __libc_version[5];
+static const char banner[642];
+
+File vfprintf.c:
+static const struct _IO_jump_t _IO_helper_jumps;
+static const uint8_t jump_table[91];
+static const char null[7];
+
+File vsnprintf.c:
+const struct _IO_jump_t _IO_strn_jumps;
+
+File vsprintf_chk.c:
+static const struct _IO_jump_t _IO_str_chk_jumps;
+
+File vswprintf.c:
+const struct _IO_jump_t _IO_wstrn_jumps;
+
+File wcrtomb.c:
+static mbstate_t state;
+
+File wcsmbsload.c:
+const struct gconv_fcts __wcsmbs_gconv_fcts_c;
+static const struct __gconv_step to_mb;
+static const struct __gconv_step to_wc;
+
+File wcsnrtombs.c:
+static mbstate_t state;
+
+File wcsrtombs.c:
+static mbstate_t state;
+
+File wctomb.c:
+mbstate_t __wctomb_state;
+
+File wfileops.c:
+const struct _IO_jump_t _IO_wfile_jumps;
+const struct _IO_jump_t _IO_wfile_jumps_maybe_mmap;
+const struct _IO_jump_t _IO_wfile_jumps_mmap;
+const struct _IO_jump_t __GI__IO_wfile_jumps;
+
+File wmemstream.c:
+static const struct _IO_jump_t _IO_wmem_jumps;
+
+File wstrops.c:
+const struct _IO_jump_t _IO_wstr_jumps;
+
+File xcrypt.c:
+static const char hex[16];
+
+File xdr.c:
+static const char xdr_zero[4];
+
+File xdr_mem.c:
+static const struct xdr_ops xdrmem_ops;
+
+File xdr_rec.c:
+static const struct xdr_ops xdrrec_ops;
+
+File xdr_stdio.c:
+static const struct xdr_ops xdrstdio_ops;
+
+File xlocale.c:
+const struct __locale_struct _nl_C_locobj;
+
+Non-debugging symbols:
+0x0000000000402310  _IO_stdin_used
+0x0000000000402318  __dso_handle
+0x0000000000402510  array
+0x0000000000402fe8  __FRAME_END__
+0x0000000000603e10  __frame_dummy_init_array_entry
+0x0000000000603e10  __init_array_start
+0x0000000000603e18  __do_global_dtors_aux_fini_array_entry
+0x0000000000603e18  __init_array_end
+0x0000000000603e20  __JCR_END__
+0x0000000000603e20  __JCR_LIST__
+0x0000000000603e28  _DYNAMIC
+0x0000000000604000  _GLOBAL_OFFSET_TABLE_
+0x0000000000604100  __data_start
+0x0000000000604100  data_start
+0x0000000000604120  n1
+0x0000000000604140  n21
+0x0000000000604160  n22
+0x0000000000604180  n32
+0x00000000006041a0  n33
+0x00000000006041c0  n31
+0x00000000006041e0  n34
+0x0000000000604200  n45
+0x0000000000604220  n41
+0x0000000000604240  n47
+0x0000000000604260  n44
+0x0000000000604280  n42
+0x00000000006042a0  n43
+0x00000000006042c0  n46
+0x00000000006042e0  n48
+0x0000000000604300  node1
+0x0000000000604310  node2
+0x0000000000604320  node3
+0x0000000000604330  node4
+0x0000000000604340  node5
+0x0000000000604350  node6
+0x0000000000604360  userid
+0x0000000000604760  bomb_id
+0x0000000000604780  host_table
+0x0000000000604b80  __TMC_END__
+0x0000000000604b80  __bss_start
+0x0000000000604b80  _edata
+0x0000000000604b80  stdout@@GLIBC_2.2.5
+0x0000000000604b88  stdin@@GLIBC_2.2.5
+0x0000000000604b90  stderr
+0x0000000000604b90  stderr@@GLIBC_2.2.5
+0x0000000000604b98  completed
+0x0000000000604b9c  num_input_strings
+0x0000000000604bc0  input_strings
+0x0000000000605200  scratch
+0x0000000000605250  _end
+0x00007ffff7df5720  debopts
+0x00007ffff7df5980  unsecure_envvars
+0x00007ffff7df5aa0  audit_iface_names
+0x00007ffff7df5b20  expected2
+0x00007ffff7df5d00  msg
+0x00007ffff7df5d60  primes
+0x00007ffff7df6010  expected_note
+0x00007ffff7df6040  auxvars
+0x00007ffff7df6a56  curwd
+0x00007ffff7df717e  __PRETTY_FUNCTION__.10356
+0x00007ffff7df7f10  __PRETTY_FUNCTION__.10058
+0x00007ffff7df7f20  __PRETTY_FUNCTION__.10117
+0x00007ffff7df7f30  __PRETTY_FUNCTION__.10237
+0x00007ffff7df8448  __PRETTY_FUNCTION__.10346
+0x00007ffff7df8458  __PRETTY_FUNCTION__.10116
+0x00007ffff7df8630  __PRETTY_FUNCTION__.10317
+0x00007ffff7df8640  __PRETTY_FUNCTION__.10039
+0x00007ffff7df89b0  __PRETTY_FUNCTION__.10766
+0x00007ffff7df8ad0  __PRETTY_FUNCTION__.8509
+0x00007ffff7df8ba0  __PRETTY_FUNCTION__.8631
+0x00007ffff7df8e60  __PRETTY_FUNCTION__.9580
+0x00007ffff7df8e98  __PRETTY_FUNCTION__.9410
+0x00007ffff7df8ea8  expected2
+0x00007ffff7df8eb8  expected1
+0x00007ffff7df9028  __PRETTY_FUNCTION__.10775
+0x00007ffff7df9038  __PRETTY_FUNCTION__.10858
+0x00007ffff7df91c0  __PRETTY_FUNCTION__.10869
+0x00007ffff7df9260  __PRETTY_FUNCTION__.10367
+0x00007ffff7df9270  __PRETTY_FUNCTION__.10283
+0x00007ffff7df92d0  __PRETTY_FUNCTION__.8013
+0x00007ffff7df9310  __PRETTY_FUNCTION__.7232
+0x00007ffff7df9320  __PRETTY_FUNCTION__.9718
+0x00007ffff7df9320  __PRETTY_FUNCTION__.9836
+0x00007ffff7df9320  __PRETTY_FUNCTION__.9941
+0x00007ffff7df9340  preload_file
+0x00007ffff7df9360  __PRETTY_FUNCTION__.9785
+0x00007ffff7df9360  __PRETTY_FUNCTION__.9899
+0x00007ffff7df9380  __PRETTY_FUNCTION__.9958
+0x00007ffff7df93a0  __PRETTY_FUNCTION__.10186
+0x00007ffff7df93c0  __PRETTY_FUNCTION__.10028
+0x00007ffff7df93e0  __PRETTY_FUNCTION__.10006
+0x00007ffff7df9400  __PRETTY_FUNCTION__.10107
+0x00007ffff7df9420  __PRETTY_FUNCTION__.10267
+0x00007ffff7df9440  __PRETTY_FUNCTION__.9597
+0x00007ffff7df9460  __PRETTY_FUNCTION__.9573
+0x00007ffff7df9480  __PRETTY_FUNCTION__.10821
+0x00007ffff7df94a0  __PRETTY_FUNCTION__.9590
+0x00007ffff7df94c0  __PRETTY_FUNCTION__.8710
+0x00007ffff7df94e0  __PRETTY_FUNCTION__.9684
+0x00007ffff7df9500  __PRETTY_FUNCTION__.9734
+0x00007ffff7df9520  __PRETTY_FUNCTION__.9687
+0x00007ffff7df9540  __PRETTY_FUNCTION__.9666
+0x00007ffff7df9560  __PRETTY_FUNCTION__.9618
+0x00007ffff7df9580  __PRETTY_FUNCTION__.9567
+0x00007ffff7df95a0  __PRETTY_FUNCTION__.9543
+0x00007ffff7df95c0  expected4
+0x00007ffff7df95e0  expected3
+0x00007ffff7df95f0  __PRETTY_FUNCTION__.10755
+0x00007ffff7df9610  __PRETTY_FUNCTION__.10728
+0x00007ffff7df9620  __PRETTY_FUNCTION__.10755
+0x00007ffff7df9640  __PRETTY_FUNCTION__.10346
+0x00007ffff7df9660  expected_note
+0x00007ffff7df9670  expected
+0x00007ffff7df9680  dummy_bucket
+0x00007ffff7df96a0  errstring
+0x00007ffff7df96e0  _.stapsdt.base
+0x00007ffff7df96e4  __GNU_EH_FRAME_HDR
+0x00007ffff7ffcbe0  dyn_temp
+0x00007ffff7ffdfc0  __bss_start
+0x00007ffff7ffdfc0  _edata
+0x00007ffff7ffdfc0  data
+0x00007ffff7ffdfd0  newname
+0x00007ffff7ffe098  dl_close_state
+0x00007ffff7a0e070  data
+0x00007ffff7b82b47  inmask
+0x00007ffff7b82c20  slashdot
+0x00007ffff7b82c40  codeset_idx
+0x00007ffff7b8f6e0  mask
+0x00007ffff7b8f8a0  nbits
+0x00007ffff7b8f8e0  nbits
+0x00007ffff7b8f920  nbits.11510
+0x00007ffff7b93460  step4_jumps
+0x00007ffff7b934e0  step3b_jumps
+0x00007ffff7b93560  step4_jumps
+0x00007ffff7b935e0  step3a_jumps
+0x00007ffff7b93660  step2_jumps
+0x00007ffff7b936e0  step1_jumps
+0x00007ffff7b93760  step0_jumps
+0x00007ffff7b93840  units
+0x00007ffff7b93860  step4_jumps
+0x00007ffff7b938e0  step3b_jumps
+0x00007ffff7b93960  step4_jumps
+0x00007ffff7b939e0  step3a_jumps
+0x00007ffff7b93a60  step2_jumps
+0x00007ffff7b93ae0  step1_jumps
+0x00007ffff7b93b60  step0_jumps
+0x00007ffff7b94e80  result_type
+0x00007ffff7b94ea8  next_state
+0x00007ffff7b95980  nbits
+0x00007ffff7b959c0  nbits.11659
+0x00007ffff7b95a00  nbits
+0x00007ffff7b98060  afs
+0x00007ffff7b98140  CSWTCH.1
+0x00007ffff7b982c0  options
+0x00007ffff7b99ae0  __PRETTY_FUNCTION__.8611
+0x00007ffff7b9b321  __func__.11874
+0x00007ffff7b9b81f  __PRETTY_FUNCTION__.9847
+0x00007ffff7b9bb3e  dot
+0x00007ffff7b9c85b  longjmp_msg
+0x00007ffff7b9d3e0  __PRETTY_FUNCTION__.9041
+0x00007ffff7b9d6c0  aliasfile
+0x00007ffff7b9d750  __PRETTY_FUNCTION__.7638
+0x00007ffff7b9daa0  __PRETTY_FUNCTION__.11372
+0x00007ffff7b9daa0  __PRETTY_FUNCTION__.11377
+0x00007ffff7b9daa0  __PRETTY_FUNCTION__.11569
+0x00007ffff7b9daa0  __PRETTY_FUNCTION__.11574
+0x00007ffff7b9dad8  __PRETTY_FUNCTION__.8229
+0x00007ffff7b9dc00  __PRETTY_FUNCTION__.13322
+0x00007ffff7b9dc10  __PRETTY_FUNCTION__.12384
+0x00007ffff7b9dc20  __PRETTY_FUNCTION__.12311
+0x00007ffff7b9dc58  __PRETTY_FUNCTION__.9639
+0x00007ffff7b9e170  __PRETTY_FUNCTION__.11886
+0x00007ffff7b9e180  __PRETTY_FUNCTION__.12050
+0x00007ffff7b9ed30  __func__.11692
+0x00007ffff7b9ed40  __func__.11652
+0x00007ffff7b9ed50  __func__.11622
+0x00007ffff7b9ed60  __func__.11180
+0x00007ffff7b9ed70  __func__.11212
+0x00007ffff7b9ed80  __func__.11586
+0x00007ffff7b9ed90  __func__.11843
+0x00007ffff7b9eda0  __func__.11564
+0x00007ffff7b9edb0  __func__.11553
+0x00007ffff7b9edc0  __func__.11173
+0x00007ffff7b9edd0  __func__.11772
+0x00007ffff7b9ede0  __func__.11509
+0x00007ffff7b9edf0  __func__.11733
+0x00007ffff7b9ee00  __func__.11860
+0x00007ffff7b9ef40  __PRETTY_FUNCTION__.7922
+0x00007ffff7b9efd8  __PRETTY_FUNCTION__.8061
+0x00007ffff7b9f098  __PRETTY_FUNCTION__.9700
+0x00007ffff7b9f148  __PRETTY_FUNCTION__.9683
+0x00007ffff7b9f158  __PRETTY_FUNCTION__.9679
+0x00007ffff7b9f190  __PRETTY_FUNCTION__.9685
+0x00007ffff7b9f1a0  __PRETTY_FUNCTION__.9686
+0x00007ffff7b9f1b0  __PRETTY_FUNCTION__.9687
+0x00007ffff7b9f230  __PRETTY_FUNCTION__.8523
+0x00007ffff7b9f2c8  __PRETTY_FUNCTION__.8638
+0x00007ffff7b9f308  __PRETTY_FUNCTION__.9685
+0x00007ffff7b9f318  __PRETTY_FUNCTION__.9703
+0x00007ffff7b9f350  __PRETTY_FUNCTION__.8653
+0x00007ffff7b9f3d0  __PRETTY_FUNCTION__.6314
+0x00007ffff7b9f498  __PRETTY_FUNCTION__.12245
+0x00007ffff7b9f4a8  __PRETTY_FUNCTION__.10148
+0x00007ffff7b9f4e0  __PRETTY_FUNCTION__.9043
+0x00007ffff7b9f4f0  __PRETTY_FUNCTION__.9321
+0x00007ffff7b9f500  __PRETTY_FUNCTION__.9369
+0x00007ffff7b9f578  __PRETTY_FUNCTION__.12590
+0x00007ffff7b9f588  __PRETTY_FUNCTION__.12577
+0x00007ffff7b9f598  __PRETTY_FUNCTION__.12775
+0x00007ffff7b9f5a8  __PRETTY_FUNCTION__.12707
+0x00007ffff7b9f5b8  __PRETTY_FUNCTION__.11520
+0x00007ffff7b9f5f8  cs_path
+0x00007ffff7b9f940  __PRETTY_FUNCTION__.14468
+0x00007ffff7b9f950  __PRETTY_FUNCTION__.14740
+0x00007ffff7b9f980  __PRETTY_FUNCTION__.11392
+0x00007ffff7b9f990  __PRETTY_FUNCTION__.11500
+0x00007ffff7b9f9a0  __PRETTY_FUNCTION__.11799
+0x00007ffff7b9f9b0  __PRETTY_FUNCTION__.11409
+0x00007ffff7b9f9c0  __PRETTY_FUNCTION__.11401
+0x00007ffff7b9fb10  __PRETTY_FUNCTION__.8208
+0x00007ffff7b9fb70  __PRETTY_FUNCTION__.9136
+0x00007ffff7b9fbd8  __PRETTY_FUNCTION__.9582
+0x00007ffff7b9fc60  __PRETTY_FUNCTION__.10677
+0x00007ffff7b9fda8  __PRETTY_FUNCTION__.9108
+0x00007ffff7b9fe20  __PRETTY_FUNCTION__.5675
+0x00007ffff7b9ff60  __PRETTY_FUNCTION__.12491
+0x00007ffff7b9ff70  __PRETTY_FUNCTION__.12304
+0x00007ffff7ba0148  __PRETTY_FUNCTION__.11984
+0x00007ffff7ba01f0  __PRETTY_FUNCTION__.4049
+0x00007ffff7ba0328  fmt
+0x00007ffff7ba0568  __func__.11260
+0x00007ffff7ba05d8  __func__.11123
+0x00007ffff7ba0678  __func__.14214
+0x00007ffff7ba06e0  __func__.11269
+0x00007ffff7ba0840  __func__.7193
+0x00007ffff7ba0850  __func__.7371
+0x00007ffff7ba0860  __func__.7334
+0x00007ffff7ba0870  __func__.7337
+0x00007ffff7ba08b8  __PRETTY_FUNCTION__.13183
+0x00007ffff7ba08c8  __PRETTY_FUNCTION__.13088
+0x00007ffff7ba08d8  __PRETTY_FUNCTION__.11602
+0x00007ffff7ba08e8  __PRETTY_FUNCTION__.9867
+0x00007ffff7ba08f8  __PRETTY_FUNCTION__.9910
+0x00007ffff7ba0908  __PRETTY_FUNCTION__.9989
+0x00007ffff7ba0960  __PRETTY_FUNCTION__.8652
+0x00007ffff7ba0980  __PRETTY_FUNCTION__.9228
+0x00007ffff7ba0990  __PRETTY_FUNCTION__.9236
+0x00007ffff7ba09b0  __PRETTY_FUNCTION__.11825
+0x00007ffff7ba09d0  __PRETTY_FUNCTION__.8596
+0x00007ffff7ba09f0  __PRETTY_FUNCTION__.10772
+0x00007ffff7ba0a10  __PRETTY_FUNCTION__.10650
+0x00007ffff7ba0a30  __PRETTY_FUNCTION__.10512
+0x00007ffff7ba0a50  __PRETTY_FUNCTION__.10359
+0x00007ffff7ba0a70  __PRETTY_FUNCTION__.10231
+0x00007ffff7ba0a90  __PRETTY_FUNCTION__.10019
+0x00007ffff7ba0ab0  __PRETTY_FUNCTION__.9239
+0x00007ffff7ba0ad0  __PRETTY_FUNCTION__.9231
+0x00007ffff7ba0af0  __PRETTY_FUNCTION__.9716
+0x00007ffff7ba0b10  __PRETTY_FUNCTION__.9074
+0x00007ffff7ba0b30  __PRETTY_FUNCTION__.9251
+0x00007ffff7ba0b50  __PRETTY_FUNCTION__.9195
+0x00007ffff7ba0b90  errstr
+0x00007ffff7ba0bd0  __PRETTY_FUNCTION__.11427
+0x00007ffff7ba0bf0  __PRETTY_FUNCTION__.11422
+0x00007ffff7ba0c10  __PRETTY_FUNCTION__.11422
+0x00007ffff7ba0c30  __PRETTY_FUNCTION__.12591
+0x00007ffff7ba0c30  __PRETTY_FUNCTION__.12615
+0x00007ffff7ba0c50  __PRETTY_FUNCTION__.12358
+0x00007ffff7ba0c70  __PRETTY_FUNCTION__.12671
+0x00007ffff7ba0c90  __PRETTY_FUNCTION__.10657
+0x00007ffff7ba0c90  __PRETTY_FUNCTION__.11242
+0x00007ffff7ba0ca0  __PRETTY_FUNCTION__.10616
+0x00007ffff7ba0cc0  __PRETTY_FUNCTION__.10709
+0x00007ffff7ba0ce0  __PRETTY_FUNCTION__.10674
+0x00007ffff7ba0d00  __PRETTY_FUNCTION__.11652
+0x00007ffff7ba0d20  __func__.11223
+0x00007ffff7ba0d40  __func__.11480
+0x00007ffff7ba0d60  __func__.11290
+0x00007ffff7ba0d80  __PRETTY_FUNCTION__.8141
+0x00007ffff7ba0da0  __PRETTY_FUNCTION__.9631
+0x00007ffff7ba0dc0  __PRETTY_FUNCTION__.11613
+0x00007ffff7ba0de0  __PRETTY_FUNCTION__.11613
+0x00007ffff7ba0e00  __PRETTY_FUNCTION__.11618
+0x00007ffff7ba0e20  __PRETTY_FUNCTION__.8658
+0x00007ffff7ba0e40  __PRETTY_FUNCTION__.6351
+0x00007ffff7ba0e60  default_tzdir
+0x00007ffff7ba0e80  __PRETTY_FUNCTION__.8322
+0x00007ffff7ba0ea0  __PRETTY_FUNCTION__.13111
+0x00007ffff7ba0ec0  __PRETTY_FUNCTION__.11883
+0x00007ffff7ba0ee0  __PRETTY_FUNCTION__.10632
+0x00007ffff7ba0f00  __PRETTY_FUNCTION__.10661
+0x00007ffff7ba0f20  __PRETTY_FUNCTION__.9093
+0x00007ffff7ba0f30  __PRETTY_FUNCTION__.8546
+0x00007ffff7ba0f50  __PRETTY_FUNCTION__.9244
+0x00007ffff7ba0f70  __PRETTY_FUNCTION__.9566
+0x00007ffff7ba0f90  __PRETTY_FUNCTION__.10689
+0x00007ffff7ba0fb0  __PRETTY_FUNCTION__.11846
+0x00007ffff7ba0fd0  __PRETTY_FUNCTION__.9505
+0x00007ffff7ba0ff0  xdigits
+0x00007ffff7ba1010  __PRETTY_FUNCTION__.13898
+0x00007ffff7ba1030  __PRETTY_FUNCTION__.12813
+0x00007ffff7ba1050  __func__.14215
+0x00007ffff7ba1060  __func__.10336
+0x00007ffff7ba1070  __PRETTY_FUNCTION__.13019
+0x00007ffff7ba1090  __PRETTY_FUNCTION__.9806
+0x00007ffff7ba10a0  __PRETTY_FUNCTION__.9874
+0x00007ffff7ba13a0  __PRETTY_FUNCTION__.11025
+0x00007ffff7ba13e0  __PRETTY_FUNCTION__.11084
+0x00007ffff7ba1420  __PRETTY_FUNCTION__.10897
+0x00007ffff7ba1460  __PRETTY_FUNCTION__.10956
+0x00007ffff7ba14a0  __PRETTY_FUNCTION__.10828
+0x00007ffff7ba14c0  __PRETTY_FUNCTION__.10706
+0x00007ffff7ba14e0  __PRETTY_FUNCTION__.10580
+0x00007ffff7ba1500  __PRETTY_FUNCTION__.10422
+0x00007ffff7ba1520  __PRETTY_FUNCTION__.10286
+0x00007ffff7ba1560  __PRETTY_FUNCTION__.10166
+0x00007ffff7ba15a0  __PRETTY_FUNCTION__.10076
+0x00007ffff7ba15e0  __PRETTY_FUNCTION__.9984
+0x00007ffff7ba1620  __PRETTY_FUNCTION__.9901
+0x00007ffff7ba1640  __PRETTY_FUNCTION__.9810
+0x00007ffff7ba16c0  bad_key_err
+0x00007ffff7ba1710  signmask
+0x00007ffff7ba1720  othermask
+0x00007ffff7ba1950  max
+0x00007ffff7ba21d4  _sys_nerr
+0x00007ffff7ba21d4  _sys_nerr@@GLIBC_2.12
+0x00007ffff7ba21d4  sys_nerr
+0x00007ffff7ba21d4  sys_nerr@@GLIBC_2.12
+0x00007ffff7ba21d8  _sys_nerr@GLIBC_2.2.5
+0x00007ffff7ba21d8  sys_nerr@GLIBC_2.2.5
+0x00007ffff7ba21dc  _sys_nerr@GLIBC_2.3
+0x00007ffff7ba21dc  sys_nerr@GLIBC_2.3
+0x00007ffff7ba21e0  _sys_nerr@GLIBC_2.4
+0x00007ffff7ba21e0  sys_nerr@GLIBC_2.4
+0x00007ffff7ba3a50  _.stapsdt.base
+0x00007ffff7ba3a7c  __GNU_EH_FRAME_HDR
+0x00007ffff7dcd8e0  __start___libc_thread_subfreeres
+0x00007ffff7dcd900  __stop___libc_thread_subfreeres
+0x00007ffff7dce800  ___sys_errlist_GLIBC_2_1
+0x00007ffff7dce800  ___sys_errlist_GLIBC_2_3
+0x00007ffff7dce800  ___sys_errlist_GLIBC_2_4
+0x00007ffff7dce800  __sys_errlist_GLIBC_2_1
+0x00007ffff7dce800  __sys_errlist_GLIBC_2_3
+0x00007ffff7dce800  __sys_errlist_GLIBC_2_4
+0x00007ffff7dce800  _sys_errlist
+0x00007ffff7dce800  _sys_errlist@@GLIBC_2.12
+0x00007ffff7dce800  _sys_errlist@GLIBC_2.2.5
+0x00007ffff7dce800  _sys_errlist@GLIBC_2.3
+0x00007ffff7dce800  _sys_errlist@GLIBC_2.4
+0x00007ffff7dce800  sys_errlist
+0x00007ffff7dce800  sys_errlist@@GLIBC_2.12
+0x00007ffff7dce800  sys_errlist@GLIBC_2.2.5
+0x00007ffff7dce800  sys_errlist@GLIBC_2.3
+0x00007ffff7dce800  sys_errlist@GLIBC_2.4
+0x00007ffff7dcec40  __old2_sys_siglist
+0x00007ffff7dcec40  _old2_sys_siglist
+0x00007ffff7dcec40  _sys_siglist
+0x00007ffff7dcec40  _sys_siglist@@GLIBC_2.3.3
+0x00007ffff7dcec40  _sys_siglist@GLIBC_2.2.5
+0x00007ffff7dcec40  sys_siglist
+0x00007ffff7dcec40  sys_siglist@@GLIBC_2.3.3
+0x00007ffff7dcec40  sys_siglist@GLIBC_2.2.5
+0x00007ffff7dcee60  __old2_sys_sigabbrev
+0x00007ffff7dcee60  sys_sigabbrev
+0x00007ffff7dcee60  sys_sigabbrev@@GLIBC_2.3.3
+0x00007ffff7dcee60  sys_sigabbrev@GLIBC_2.2.5
+0x00007ffff7dd0ba0  _DYNAMIC
+0x00007ffff7dd1000  _GLOBAL_OFFSET_TABLE_
+0x00007ffff7dd1140  may_shrink_heap
+0x00007ffff7dd1220  cached_result
+0x00007ffff7dd1308  num_ifs
+0x00007ffff7dd130c  startport
+0x00007ffff7dd1314  tty_gid
+0x00007ffff7dd15c0  __ctype32_toupper@GLIBC_2.2.5
+0x00007ffff7dd15c8  __ctype32_tolower@GLIBC_2.2.5
+0x00007ffff7dd15d0  __ctype_toupper@GLIBC_2.2.5
+0x00007ffff7dd15d8  __ctype_tolower@GLIBC_2.2.5
+0x00007ffff7dd15e0  __ctype32_b@GLIBC_2.2.5
+0x00007ffff7dd15e8  __ctype_b@GLIBC_2.2.5
+0x00007ffff7dd2718  DW.ref.__gcc_personality_v0
+0x00007ffff7dd2720  __bss_start
+0x00007ffff7dd2720  _edata
+0x00007ffff7dd28d8  modcounter
+0x00007ffff7dd28dc  lock
+0x00007ffff7dd2a40  result
+0x00007ffff7dd2ad8  output_charset_cache
+0x00007ffff7dd2ae0  output_charset_cached
+0x00007ffff7dd2ae8  freemem_size
+0x00007ffff7dd2af0  freemem
+0x00007ffff7dd2af8  lock
+0x00007ffff7dd2b60  lock
+0x00007ffff7dd2ba0  lock
+0x00007ffff7dd2bb0  locale_alias_path
+0x00007ffff7dd2c08  phys_pages
+0x00007ffff7dd2c10  pagesize
+0x00007ffff7dd3478  state
+0x00007ffff7dd35f8  sysconf_symloop_max
+0x00007ffff7dd3600  result
+0x00007ffff7dd3620  nore
+0x00007ffff7dd3660  noexpr
+0x00007ffff7dd3680  yesre
+0x00007ffff7dd36c0  yesexpr
+0x00007ffff7dd36c8  once
+0x00007ffff7dd36d8  name
+0x00007ffff7dd3718  value
+0x00007ffff7dd37b8  next_to_use
+0x00007ffff7dd37c0  narenas_limit
+0x00007ffff7dd3838  added_atexit_handler
+0x00007ffff7dd3870  _obstack@GLIBC_2.2.5
+0x00007ffff7dd3878  already_called
+0x00007ffff7dd3880  once
+0x00007ffff7dd3908  save_ptr
+0x00007ffff7dd3920  state
+0x00007ffff7dd3940  rdata
+0x00007ffff7dd3970  init
+0x00007ffff7dd3a4c  is_initialized
+0x00007ffff7dd3b30  gmtime_offset
+0x00007ffff7dd3b40  tmbuf
+0x00007ffff7dd3b80  resbuf
+0x00007ffff7dd3ba0  buffer_size
+0x00007ffff7dd3bc0  buffer_size
+0x00007ffff7dd3be0  resbuf
+0x00007ffff7dd3c20  resbuf
+0x00007ffff7dd3c40  buffer_size
+0x00007ffff7dd3c60  resbuf
+0x00007ffff7dd3c80  buffer_size
+0x00007ffff7dd3cb0  start_fct
+0x00007ffff7dd3cb8  startp
+0x00007ffff7dd3cc0  startp_initialized
+0x00007ffff7dd3cc8  start_fct.11823
+0x00007ffff7dd3cd0  startp.11822
+0x00007ffff7dd3cd8  startp_initialized.11821
+0x00007ffff7dd3ce0  resbuf
+0x00007ffff7dd3d10  buffer_size
+0x00007ffff7dd3d20  buffer_size
+0x00007ffff7dd3d40  resbuf
+0x00007ffff7dd3d80  resbuf
+0x00007ffff7dd3db0  buffer_size
+0x00007ffff7dd3dc0  resbuf.10111
+0x00007ffff7dd3df0  buffer_size.10110
+0x00007ffff7dd3e20  start_fct
+0x00007ffff7dd3e28  startp
+0x00007ffff7dd3e30  startp_initialized
+0x00007ffff7dd3e38  start_fct.11830
+0x00007ffff7dd3e40  startp.11829
+0x00007ffff7dd3e48  startp_initialized.11828
+0x00007ffff7dd3ee0  lock
+0x00007ffff7dd3ee4  once
+0x00007ffff7dd3f40  namelen
+0x00007ffff7dd3f48  buflen
+0x00007ffff7dd3f50  tiocgsid_does_not_work
+0x00007ffff7dd3fe0  m
+0x00007ffff7dd4008  once
+0x00007ffff7dd4020  tty
+0x00007ffff7dd4060  line
+0x00007ffff7dd4118  bufsize
+0x00007ffff7dd4120  buf
+0x00007ffff7dd42a0  old_file_name
+0x00007ffff7dd42a8  old_line_number
+0x00007ffff7dd42b0  timestamp
+0x00007ffff7dd42b8  last_type
+0x00007ffff7dd42bc  last_family
+0x00007ffff7dd42e0  oact
+0x00007ffff7dd4380  otimer
+0x00007ffff7dd44a0  buffer_size
+0x00007ffff7dd44c0  resbuf
+0x00007ffff7dd4520  resbuf
+0x00007ffff7dd4568  buffer_size
+0x00007ffff7dd4580  resbuf
+0x00007ffff7dd45c8  buffer_size
+0x00007ffff7dd45d0  buffer
+0x00007ffff7dd45e0  resbuf
+0x00007ffff7dd4628  buffer_size
+0x00007ffff7dd4658  start_fct
+0x00007ffff7dd4660  startp
+0x00007ffff7dd4668  startp_initialized
+0x00007ffff7dd4680  buffer_size
+0x00007ffff7dd46a0  resbuf
+0x00007ffff7dd46e0  resbuf
+0x00007ffff7dd4700  buffer_size
+0x00007ffff7dd4720  resbuf
+0x00007ffff7dd4740  buffer_size
+0x00007ffff7dd4748  buffer
+0x00007ffff7dd4760  resbuf
+0x00007ffff7dd4780  buffer_size
+0x00007ffff7dd47b0  start_fct
+0x00007ffff7dd47b8  startp
+0x00007ffff7dd47c0  startp_initialized
+0x00007ffff7dd5108  result
+0x00007ffff7dd5110  once
+0x00007ffff7dd5138  lock
+0x00007ffff7dd5160  resbuf
+0x00007ffff7dd5180  buffer_size
+0x00007ffff7dd5190  start_fct
+0x00007ffff7dd5198  startp
+0x00007ffff7dd51a0  startp_initialized
+0x00007ffff7dd51c0  resbuf
+0x00007ffff7dd51e0  buffer_size
+0x00007ffff7dd5200  resbuf
+0x00007ffff7dd5220  buffer_size
+0x00007ffff7dd5230  start_fct
+0x00007ffff7dd5238  startp
+0x00007ffff7dd5240  startp_initialized
+0x00007ffff7dd5248  start_fct
+0x00007ffff7dd5250  startp
+0x00007ffff7dd5258  startp_initialized
+0x00007ffff7dd5260  buffer_size
+0x00007ffff7dd5280  resbuf
+0x00007ffff7dd52d0  resbuf
+0x00007ffff7dd52e8  buffer_size
+0x00007ffff7dd52f8  start_fct
+0x00007ffff7dd5300  startp
+0x00007ffff7dd5308  startp_initialized
+0x00007ffff7dd5310  resbuf
+0x00007ffff7dd5328  buffer_size
+0x00007ffff7dd5340  buffer_size.11247
+0x00007ffff7dd5350  resbuf.11251
+0x00007ffff7dd5390  start_fct
+0x00007ffff7dd5398  startp
+0x00007ffff7dd53a0  startp_initialized
+0x00007ffff7dd53b0  resbuf
+0x00007ffff7dd53c8  buffer_size
+0x00007ffff7dd53d8  start_fct
+0x00007ffff7dd53e0  startp
+0x00007ffff7dd53e8  startp_initialized
+0x00007ffff7dd53f0  buffer_size
+0x00007ffff7dd5400  resbuf
+0x00007ffff7dd5440  resbuf.11287
+0x00007ffff7dd5458  buffer_size.11286
+0x00007ffff7dd5468  start_fct.11296
+0x00007ffff7dd5470  startp.11295
+0x00007ffff7dd5478  startp_initialized.11294
+0x00007ffff7dd5480  resbuf
+0x00007ffff7dd54a0  buffer_size
+0x00007ffff7dd54b0  start_fct
+0x00007ffff7dd54b8  startp
+0x00007ffff7dd54c0  startp_initialized
+0x00007ffff7dd54e0  resbuf.11289
+0x00007ffff7dd5500  buffer_size.11288
+0x00007ffff7dd5510  start_fct.11832
+0x00007ffff7dd5518  startp.11831
+0x00007ffff7dd5520  startp_initialized.11830
+0x00007ffff7dd5540  buffer_size.11246
+0x00007ffff7dd5560  resbuf.11250
+0x00007ffff7dd55a8  result
+0x00007ffff7dd55b0  start_fct
+0x00007ffff7dd55b8  startp
+0x00007ffff7dd55c0  asc
+0x00007ffff7dd55d8  start_fct.10068
+0x00007ffff7dd55e0  startp.10067
+0x00007ffff7dd5680  startp
+0x00007ffff7dd5688  startp_initialized
+0x00007ffff7dd56fc  once
+0x00007ffff7dd5720  buffer_size
+0x00007ffff7dd5740  resbuf
+0x00007ffff7dd5780  resbuf
+0x00007ffff7dd57a0  buffer_size
+0x00007ffff7dd57b0  start_fct
+0x00007ffff7dd57b8  startp
+0x00007ffff7dd57c0  startp_initialized
+0x00007ffff7dd57c4  lock
+0x00007ffff7dd57c8  not_first
+0x00007ffff7dd57e0  tmpbuf
+0x00007ffff7dd5a60  lock
+0x00007ffff7dd5a64  once
+0x00007ffff7dd5a80  _res@GLIBC_2.2.5
+0x00007ffff7dd5cb8  last_mtime
+0x00007ffff7dd5cd0  default_table
+0x00007ffff7dd5da0  port
+0x00007ffff7dd5dbc  size
+0x00007ffff7dd5dd8  start_fct
+0x00007ffff7dd5de0  startp
+0x00007ffff7dd5de8  start_fct
+0x00007ffff7dd5df0  startp
+0x00007ffff7dd5e00  buffer_size
+0x00007ffff7dd5e10  resbuf
+0x00007ffff7dd5e30  resbuf
+0x00007ffff7dd5e48  buffer_size
+0x00007ffff7dd5e60  resbuf.10044
+0x00007ffff7dd5e78  buffer_size.10043
+0x00007ffff7dd5ea8  start_fct
+0x00007ffff7dd5eb0  startp
+0x00007ffff7dd5eb8  startp_initialized
+0x00007ffff7dd5ec0  start_fct.10053
+0x00007ffff7dd5ec8  startp.10052
+0x00007ffff7dd5ed0  startp_initialized.10051
+0x00007ffff7dd5ee0  cm
+0x00007ffff7dd5f58  start_fct
+0x00007ffff7dd5f60  startp
+0x00007ffff7dd5f80  once
+0x00007ffff7dd60a8  crud
+0x00007ffff7dd62ac  devpts_mounted
+0x00007ffff7dd62b0  have_no_dev_ptmx
+0x00007ffff7dd6518  locs@GLIBC_2.2.5
+0x00007ffff7dd6520  loc1@GLIBC_2.2.5
+0x00007ffff7dd6528  loc2@GLIBC_2.2.5
+0x00007ffff7dd69a0  _end
+0x00007ffff7ba21d4  _sys_nerr
+0x00007ffff7ba21d4  sys_nerr
+0x00007ffff7ba21d8  _sys_nerr
+0x00007ffff7ba21d8  sys_nerr
+0x00007ffff7ba21dc  _sys_nerr
+0x00007ffff7ba21dc  sys_nerr
+0x00007ffff7ba21e0  _sys_nerr
+0x00007ffff7ba21e0  sys_nerr
+0x00007ffff7dce800  _sys_errlist
+0x00007ffff7dce800  sys_errlist
+0x00007ffff7dcec40  _sys_siglist
+0x00007ffff7dcec40  sys_siglist
+0x00007ffff7dcee60  sys_sigabbrev
+0x00007ffff7dd3870  _obstack
+0x00007ffff78043b0  __PRETTY_FUNCTION__.11657
+0x00007ffff78043d0  __PRETTY_FUNCTION__.11595
+0x00007ffff7804490  __GNU_EH_FRAME_HDR
+0x00007ffff7805c68  __FRAME_END__
+0x00007ffff7a06d88  __frame_dummy_init_array_entry
+0x00007ffff7a06d90  __do_global_dtors_aux_fini_array_entry
+0x00007ffff7a06d98  __JCR_END__
+0x00007ffff7a06d98  __JCR_LIST__
+0x00007ffff7a06da0  _DYNAMIC
+0x00007ffff7a07000  _GLOBAL_OFFSET_TABLE_
+0x00007ffff7a07140  __dso_handle
+0x00007ffff7a07148  __TMC_END__
+0x00007ffff7a07148  __bss_start
+0x00007ffff7a07148  _edata
+0x00007ffff7a07160  completed
+0x00007ffff7a0d718  _end
+0x00007ffff73f6730  nibblechar
+0x00007ffff73f6740  v6local
+0x00007ffff73f6748  tunnelled
+0x00007ffff73f6758  mapped
+0x00007ffff73f6770  __PRETTY_FUNCTION__.11498
+0x00007ffff73f67dc  __GNU_EH_FRAME_HDR
+0x00007ffff73f6bb0  __FRAME_END__
+0x00007ffff75f7d78  __frame_dummy_init_array_entry
+0x00007ffff75f7d80  __do_global_dtors_aux_fini_array_entry
+0x00007ffff75f7d88  __JCR_END__
+0x00007ffff75f7d88  __JCR_LIST__
+0x00007ffff75f7d90  _DYNAMIC
+0x00007ffff75f8000  _GLOBAL_OFFSET_TABLE_
+0x00007ffff75f80c8  __dso_handle
+0x00007ffff75f80d0  __TMC_END__
+0x00007ffff75f80d0  __bss_start
+0x00007ffff75f80d0  _edata
+0x00007ffff75f80d0  completed
+0x00007ffff75f80d8  _end
+0x00007ffff71ea310  tunnelled
+0x00007ffff71ea320  mapped
+0x00007ffff71ea4fa  error
+0x00007ffff71eacf0  __PRETTY_FUNCTION__.11286
+0x00007ffff71ead30  __PRETTY_FUNCTION__.12572
+0x00007ffff71ead38  __PRETTY_FUNCTION__.12503
+0x00007ffff71ead80  __PRETTY_FUNCTION__.8114
+0x00007ffff71eada0  xdigits
+0x00007ffff71eb0fe  __PRETTY_FUNCTION__.9056
+0x00007ffff71eb510  __GNU_EH_FRAME_HDR
+0x00007ffff71ed3b0  __FRAME_END__
+0x00007ffff73ee4a8  __frame_dummy_init_array_entry
+0x00007ffff73ee4b0  __do_global_dtors_aux_fini_array_entry
+0x00007ffff73ee4b8  __JCR_END__
+0x00007ffff73ee4b8  __JCR_LIST__
+0x00007ffff73eed88  _DYNAMIC
+0x00007ffff73ef000  _GLOBAL_OFFSET_TABLE_
+0x00007ffff73ef1c0  __dso_handle
+0x00007ffff73ef1c8  buflen
+0x00007ffff73ef260  __TMC_END__
+0x00007ffff73ef260  __bss_start
+0x00007ffff73ef260  _edata
+0x00007ffff73ef260  completed
+0x00007ffff73f1500  output
+0x00007ffff73f1510  retbuf
+0x00007ffff73f1520  tmpbuf
+0x00007ffff73f1580  nbuf
+0x00007ffff73f15c0  nbuf
+0x00007ffff73f15f0  unname
+0x00007ffff73f1610  unname
+0x00007ffff73f1640  abuf
+0x00007ffff73f1a44  have_sendmmsg
+0x00007ffff73f1a48  _end

@@ -1,0 +1,190 @@
+Zach Halvorsen
+HW3
+
+*****************Problem 3.62*****************
+FROM BOOK:
+.L8:
+    movl    $27, %eax
+    ret
+.L3:
+    movq    (%rsi), %rax
+    movq    (%rdi), %rdx
+    movq    %rdx, (%rsi)
+    ret
+.L5:
+    movq    (%rdi), %rax
+    addq    (%rsi), %rax
+    movq    %rax, (%rdi)
+    ret
+.L6:
+    movq    $59, (%rdi)
+    movq    (%rsi), %rax
+    ret
+.L7:
+    movq    (%rsi), %rax
+    movq    %rax, (%rdi)
+    movl    $27, %eax
+    ret
+.L9:
+    movl    $12, %eax
+    ret
+
+FROM MY CODE:
+.L8:
+    movl	$27, %eax
+    ret
+.L3:
+    movq	(%rsi), %rax
+    movq	(%rdi), %rdx
+    movq	%rdx, (%rsi)
+    ret
+.L5:
+    movq	(%rsi), %rax
+    addq	(%rdi), %rax
+    movq	%rax, (%rdi)
+    ret
+.L6:
+    movq	$59, (%rdi)
+    movq	(%rsi), %rax
+    ret
+.L7:
+    movq	(%rsi), %rax
+    movq	%rax, (%rdi)
+    movl	$27, %eax
+    ret
+.L9:
+    movl	$12, %eax
+    ret
+    .cfi_endproc
+
+The only difference is in MODE_B there are added in a different order but
+this would not change the answer. This must just be a small difference in
+compiler version or machine
+
+/* Enumerated type creates set of constants numbered 0 and upward */
+typedef enum {MODE_A, MODE_B, MODE_C, MODE_D, MODE_E} mode_t;
+
+long switch3(long *p1, long *p2, mode_t action)
+{
+    /*
+     *p1 in %rdi
+     *p2 in %rsi
+     *action in %edx
+     */
+    long result = 0;
+    switch(action) {
+    case MODE_A:
+        result = *p2;
+        *p2 = *p1;
+        break;
+
+    case MODE_B:
+        *p1 = *p1 + *p2;
+        result = *p1;
+        break;
+
+    case MODE_C:
+        *p1 = 59;
+        result = *p2;
+        break;
+
+    case MODE_D:
+        *p1 = *p2;
+        /*Fall Through*/
+
+    case MODE_E:
+        result = 27;
+        break;
+
+    default:
+        result = 12;
+        break;
+    }
+    return result;
+}
+*****************Problem 3.63*****************
+
+long switch_prob(long x, long n) {
+    long result = x;
+    switch (n)
+    {
+    case 0x3c:
+    case 0x3e:
+        result = 0x08 * x;
+        break;
+    case 0x3f:
+        result = result >> 0x03;
+        break;
+    case 0x40:
+        result = result << 4;
+        x = result - x;
+    case 0x41:
+        x = x * x;
+    default:
+        result = x + 75;
+        break;
+    }
+    return result;
+}
+
+>>> disass
+Dump of assembler code for function switch_prob:
+=> 0x00000000004004d6 <+0>:		sub    $0x3c,%rsi
+   0x00000000004004da <+4>:		cmp    $0x5,%rsi
+   0x00000000004004de <+8>:		ja     0x400509 <switch_prob+51>
+   0x00000000004004e0 <+10>:	jmpq   *0x4005f8(,%rsi,8)
+   0x00000000004004e7 <+17>:	lea    0x0(,%rdi,8),%rax
+   0x00000000004004ef <+25>:	retq
+   0x00000000004004f0 <+26>:	mov    %rdi,%rax
+   0x00000000004004f3 <+29>:	sar    $0x3,%rax
+   0x00000000004004f7 <+33>:	retq
+   0x00000000004004f8 <+34>:	mov    %rdi,%rax
+   0x00000000004004fb <+37>:	shl    $0x4,%rax
+   0x00000000004004ff <+41>:	sub    %rdi,%rax
+   0x0000000000400502 <+44>:	mov    %rax,%rdi
+   0x0000000000400505 <+47>:	imul   %rdi,%rdi
+   0x0000000000400509 <+51>:	lea    0x4b(%rdi),%rax
+   0x000000000040050d <+55>:	retq
+End of assembler dump.
+
+To get this output I had to compile with:
+gcc -O1 -g -o3_63 3_63.c
+
+then I ran it with GDB with a breakpoint at the beginning of switch_prob. Then I used the GDB command:
+disass
+to show the assembly that was about to run.
+
+*****************Problem 3.65*****************
+
+A- A[i][j] = rax;
+B- A[j][i] = rdx;
+C- 15
+D-
+void transpose_optimized(long A[M][M]) {
+	// fill your code in here
+    long *i = &A[0][0];
+    long *j = &A[0][0];
+    while(i < &A[M-1][M]) {
+        long temp1 = *i;
+        long temp2 = *j;
+        *(i) = temp2;
+        *(j) = temp1;
+        j += 8;
+        i += 8 * M;
+    }
+}
+
+*****************Problem 3.70*****************
+
+A-
+    e1.p    = 0
+    e1.y    = 0
+    e2.x    = 8
+    e2.ele  = 8
+B-
+    16
+C-
+
+void proc(union ele *up) {
+    up->e1.y = *(up->e2.next->e1.p) - up->e2.next->x;
+}

@@ -1,0 +1,5 @@
+Phase 1: found pointer to string in rsi
+Phase 2: 6 numbers separated by spaces, found by a scanf.
+         iterates through them checking each one from rax.
+         1 2 4 8 16 32
+Phase 3:
