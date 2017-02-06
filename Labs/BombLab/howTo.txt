@@ -1,5 +1,78 @@
-Phase 1: found pointer to string in rsi
-Phase 2: 6 numbers separated by spaces, found by a scanf.
-         iterates through them checking each one from rax.
-         1 2 4 8 16 32
+General Tips:
+
+Create gdb script called gdbcmds and use terminal to run command:
+$ gdb -x gdbcmds
+
+We are noticing that the phases can be very different per person
+
+So 0xc(%rsp) is the first number from scanf 0x8(%rsp) is the second (from what i’ve seen)
+
+Use ni to step one instruction over function calls. Use si to step one instruction into function calls
+
+
+Phase 1:
+found pointer to string in rsi
+
+
+Phase 2:
+6 numbers separated by spaces, found by a scanf.
+Iterates through them checking each one from rax.
+1 2 4 8 16 32
+
+
+
 Phase 3:
+two values second value is moved into eax in command:
+0x0000000000400f8c phase_3+57 mov    $0x22c,%eax
+0 556
+
+
+
+Phase 4:
+You can just break before the “cmp  0xc(%rsp) , %eax” and the “cmp  0x8(%rsp) , %eax” and look at eax to tell what the two numbers should be. As usual it first checks that you entered a minimum number of numbers (2 in this case). Do the same for phase 3
+
+
+
+Phase 5:
+
+1st Compare: Just have at least 2 numbers
+
+2nd Compare: (getting the first number)
+
+mov    $0x0,%ecx
+  4010cd:	ba 00 00 00 00       	mov    $0x0,%edx
+
+  4010d2:	83 c2 01             	add    $0x1,%edx
+  4010d5:	48 98                	cltq
+  eax starts as first number the first time this loop runs!
+  4010d7:	8b 04 85 60 25 40 00 	mov    0x402560(,%rax,4),%eax <- this is an array in memory indexed by rax, mine has values a, 2, e, 7, 8, a, f, b - to find this you need to add 4 to 0x402560 incrementally to get each index value
+  4010de:	01 c1                	add    %eax,%ecx, it adds the value to the previous
+  4010e0:	83 f8 0f             	cmp    $0xf,%eax
+  4010e3:	75 ed                	jne    4010d2 <phase_5+0x41>
+
+
+  4010e5:	89 44 24 0c          	mov    %eax,0xc(%rsp)
+  4010e9:	83 fa 0f             	cmp    $0xf,%edx this needs to be true
+The top loop needs to run a certain number of times to not jump to bomb right after. Mine is 15 times (see line 4010e9 above).   OK, so find the f in your array (index 6 in my case), then set your first number to the index right before it (index 5 in my case). That will get you past this compare…. If that doesn’t work then just start at 0 and work your way up and you will get it sooner or later because the array isn’t very long
+
+3rd Compare: Just a break at the compare and set your second number accordingly
+  4010ee:	3b 4c 24 08          	cmp    0x8(%rsp),%ecx -- check ecx here
+  4010f2:	74 05                	je     4010f9 <phase_5+0x68>
+  4010f4:	e8 96 04 00 00       	callq  40158f <explode_bomb>
+  4010f9:	48 83 c4 18          	add    $0x18,%rsp
+  4010fd:	c3                   	retq
+
+
+Phase 6
+Must enter 6 numbers all between 1 and 6 and no repeats
+There’s a linked list swimming around. Follow directions here: http://zpalexander.com/binary-bomb-lab-phase-6/
+To print out your linked list nodes.
+
+Your nodes will be different so you’ll have to write them out and then put them in order of value (each node has a value, node number, then the address of next node).
+
+ Also, on mine I had to enter the numbers mirrored (if I wanted 1 I had to put 6, 2 for 5, 3 for 4, 4 for 3, 5 for 2, and 1 for 6). No idea why so you might have some weird trick like that.
+
+How i printed my nodes:
+
+
+Extra Credit Phase (not happening)

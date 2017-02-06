@@ -1,7 +1,7 @@
 file bomb
-break explode_bomb
-break phase_3
-break phase_4
-break phase_5
+break *0x40119c
 break phase_6
+break explode_bomb
+break *0x40153f
+break *0x401540
 run answers.txt
