@@ -1,0 +1,25 @@
+
+output.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	48 c7 c7 0e 66 21 5d 	mov    $0x5d21660e,%rdi
+   7:	48 83 c4 f8          	add    $0xfffffffffffffff8,%rsp
+   b:	48 c7 04 24 10 17 40 	movq   $0x401710,(%rsp)
+  12:	00
+  13:	c3                   	retq
+
+output.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <.text>:
+   0:	48 81 ec 00 02 00 00 	sub    $0x200,%rsp
+   7:	48 c7 c7 b4 92 60 55 	mov    $0x556092b4,%rdi
+   e:	48 c7 04 24 e4 17 40 	movq   $0x4017e4,(%rsp)
+  15:	00
+  16:	c3                   	retq
+48 81 ec 00 02 00 00 48 c7 c7 b4 92 60 55 48 c7 04 24 e4 17 40 00 c3
