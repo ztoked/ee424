@@ -1,0 +1,49 @@
+HW 4
+Zach Halvorsen
+
+********************Problem 4.45*********************
+
+A-
+    The only situation where this will not work is if you push the stack pointer because it will push the stack pointer stack pointer - 8 instead of the stack pointer
+B-
+    movq REG, $-8(%rsp)
+    subq $8, %rsp
+
+********************Problem 4.46*********************
+
+A-
+    This will not work when popping the stack pointer because it will once again have the wrong value for the stack pointer
+B-
+    add $8, rsp
+    movq $-8(rsp), REG
+
+********************Problem 424-2********************
+
+A-
+    If it is 21 it gets a segmentation fault, if it is 20 it works fine so 1048576 is the max array size. This will not change with different machines or different gcc settings because it will not change the amount of space that the array takes or how big the stack is. We can change the stack size from its default of 8192 KB. When we did so we did see an increase in the array size that we were able to put, just as we expected.
+
+Working:
+#define N 20        /* plug something in here */
+
+Result returned by big_array() is 5.497553e+11
+_________________________________________________________
+Breaking array size:
+#define N 21        /* plug something in here */
+
+Segmentation fault
+_________________________________________________________
+B-
+    If M is 17 it works but if it is 18 it segment faults. So the max recursion is 131072. This is greatly effected by the gcc compiler settings. If we did -O1 or -O2 we were able to get 262144 recursion depth. When we put -O3 we got depth of 524288. We tried -Ofast and we maxed out the value and it didn't even seg fault. Stack size also effected the depth according to what we expected.
+
+Working:
+#define M 17        /* plug something in here */
+
+Result returned by big_array() is 5.497553e+11
+Result returned by max_recursion() is 8.590000e+09
+_________________________________________________________
+Breaking recursion:
+#define M 18        /* plug something in here */
+
+Result returned by big_array() is 5.497553e+11
+Segmentation fault
+_________________________________________________________

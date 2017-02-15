@@ -1,0 +1,3 @@
+file ctarget
+break *0x4019b4
+run < raw
