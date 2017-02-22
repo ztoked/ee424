@@ -1,0 +1,217 @@
+HW 5
+Zach Halvorsen
+
+******************Problem 4.47******************
+
+A-
+void bubble_a(long *data, long count)
+{
+    long i, last;
+    for(last = count - 1; last > 0; last--) {
+        for(i = 0; i < last; i++) {
+            if(data[i+1] < data[i]) {
+                long t = data[i+1];
+                data[i+1] = data[i];
+                data[i] = t;
+            }
+        }
+    }
+}
+
+void bubble_p(long *data, long count)  /* pointer version */
+{
+    long i, last;
+    for(last = count - 1; last > 0; last--) {
+        for(i = 0; i < last; i++) {
+            if(*(data + i + 1) < *(data + i)) {
+                long t = *(data + i + 1);
+                *(data + i + 1) = *(data + i);
+                *(data + i) = t;
+            }
+        }
+    }
+}
+
+array version
+  Before: 0xdddd 0xeeee 0xbbbb 0xaaaa 0xffff 0xcccc
+  After:  0xaaaa 0xbbbb 0xcccc 0xdddd 0xeeee 0xffff
+pointer version
+  Before: 0xdddd 0xeeee 0xbbbb 0xaaaa 0xffff 0xcccc
+  After:  0xaaaa 0xbbbb 0xcccc 0xdddd 0xeeee 0xffff
+
+B-
+# Execution begins at address 0
+	.pos 0
+	irmovq stack, %rsp  	# Set up stack pointer
+	call main		# Execute main program
+	halt			# Terminate program
+
+# Array of 4 elements
+	.align 8
+array:	.quad 0xdddd          # These values should get sorted
+        .quad 0xeeee
+        .quad 0xbbbb
+        .quad 0xaaaa
+        .quad 0xffff
+        .quad 0xcccc
+        .quad 0x0101          # This value should not change
+
+
+main:	irmovq array,%rdi
+	irmovq $6,%rsi
+	call bubble_p		# bubble_p(array, )
+	ret
+
+# void bubble_p(long *data, long count)
+	#.align 4,,15
+bubble_p:
+	irmovq  $8, %r8
+	irmovq  $1, %r11
+	subq	%r11, %rsi
+	jle	L11
+
+	#.align 4,,10
+	#.align 3
+
+L17:
+	irmovq	$0, %rax
+	#.align 4,,10
+	#.align 3
+L14:
+	rrmovq  %rax, %r9
+	addq    %rax, %r9
+	addq    %rax, %r9
+	addq    %rax, %r9
+	addq    %rax, %r9
+	addq    %rax, %r9
+	addq    %rax, %r9
+	addq    %rax, %r9
+
+	irmovq $0, %r12
+
+	addq    %r9, %r12
+	addq    %rdi, %r12
+	addq    %r8, %r12
+
+	mrmovq    (%r12), %rdx
+
+	#movl	8(%rdi,%rax,8), %rdx
+
+	rrmovq  %rax, %r9
+	addq    %rax, %r9
+	addq    %rax, %r9
+	addq    %rax, %r9
+	addq    %rax, %r9
+	addq    %rax, %r9
+	addq    %rax, %r9
+	addq    %rax, %r9
+
+	irmovq $0, %r12
+
+	addq    %r9, %r12
+	addq    %rdi, %r12
+
+	mrmovq    (%r12), %rcx
+
+	#movl	(%rdi,%rax,8), %rcx
+
+	#cmpl	%rcx, %rdx
+	rrmovq  %rcx, %r13
+	rrmovq  %rdx, %r14
+	subq    %r13, %r14
+
+	jge	L13
+
+	rrmovq  %rax, %r9
+	addq    %rax, %r9
+	addq    %rax, %r9
+	addq    %rax, %r9
+	addq    %rax, %r9
+	addq    %rax, %r9
+	addq    %rax, %r9
+	addq    %rax, %r9
+
+	rrmovq  %rdi, %r12
+	addq    %r9, %r12
+	addq    %r8, %r12
+
+	rmmovq  %rcx, (%r12)
+
+	#movl	%rcx, 8(%rdi,%rax,8)
+
+	rrmovq  %rax, %r9
+	addq    %rax, %r9
+	addq    %rax, %r9
+	addq    %rax, %r9
+	addq    %rax, %r9
+	addq    %rax, %r9
+	addq    %rax, %r9
+	addq    %rax, %r9
+
+	rrmovq  %rdi, %r12
+	addq    %r9, %r12
+
+	rmmovq  %rdx, (%r12)
+
+	#movl	%rdx, (%rdi,%rax,8)
+L13:
+	addq	%r11, %rax
+	rrmovq  %rax, %r10
+	#cmpl	%rsi, %rax
+	subq 	%rsi, %r10
+	jl	L14
+	subq	%r11, %rsi
+	jne	L17
+L11:
+	ret
+
+# Stack starts here and grows down
+	.pos 0x200
+stack:
+
+Stopped in 706 steps at PC = 0x13.  Status 'HLT', CC Z=1 S=0 O=0
+Changes to registers:
+%rax:	0x0000000000000000	0x0000000000000001
+%rcx:	0x0000000000000000	0x000000000000aaaa
+%rdx:	0x0000000000000000	0x000000000000bbbb
+%rsp:	0x0000000000000000	0x0000000000000200
+%rdi:	0x0000000000000000	0x0000000000000018
+%r8:	0x0000000000000000	0x0000000000000008
+%r11:	0x0000000000000000	0x0000000000000001
+%r12:	0x0000000000000000	0x0000000000000018
+%r13:	0x0000000000000000	0x000000000000aaaa
+%r14:	0x0000000000000000	0x0000000000001111
+
+Changes to memory:
+0x0018:	0x000000000000dddd	0x000000000000aaaa
+0x0020:	0x000000000000eeee	0x000000000000bbbb
+0x0028:	0x000000000000bbbb	0x000000000000cccc
+0x0030:	0x000000000000aaaa	0x000000000000dddd
+0x0038:	0x000000000000ffff	0x000000000000eeee
+0x0040:	0x000000000000cccc	0x000000000000ffff
+0x01f0:	0x0000000000000000	0x000000000000006d
+0x01f8:	0x0000000000000000	0x0000000000000013
+
+
+******************Problem 4.51******************
+
+iaddq instruction:
+
+Fetch:
+	icode: ifun <- M1[PC]
+	rA:rB <- M1[PC + 1]
+	valV <- M8[PC + 2]
+	valP <- PC + 10
+
+Decode:
+
+Execute:
+	valE <- rB + valC
+
+Memory:
+
+Write back:
+	R[rB] <- valE
+
+PC update
+	PC <- valP

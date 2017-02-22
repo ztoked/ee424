@@ -1,0 +1,128 @@
+# Execution begins at address 0
+	.pos 0
+	irmovq stack, %rsp  	# Set up stack pointer
+	call main		# Execute main program
+	halt			# Terminate program
+
+# Array of 4 elements
+	.align 8
+array:	.quad 0xdddd          # These values should get sorted
+        .quad 0xeeee
+        .quad 0xbbbb
+        .quad 0xaaaa
+        .quad 0xffff
+        .quad 0xcccc
+        .quad 0x0101          # This value should not change
+
+
+main:	irmovq array,%rdi
+	irmovq $6,%rsi
+	call Bubble		# Bubble(array, )
+	ret
+
+# void Bubble(long *data, long count)
+	#.align 4,,15
+Bubble:
+	irmovq  $8, %r8
+	irmovq  $1, %r11
+	subq	%r11, %rsi
+	jle	L11
+
+	#.align 4,,10
+	#.align 3
+
+L17:
+	irmovq	$0, %rax
+	#.align 4,,10
+	#.align 3
+L14:
+	rrmovq  %rax, %r9
+	addq    %rax, %r9
+	addq    %rax, %r9
+	addq    %rax, %r9
+	addq    %rax, %r9
+	addq    %rax, %r9
+	addq    %rax, %r9
+	addq    %rax, %r9
+
+	irmovq $0, %r12
+
+	addq    %r9, %r12
+	addq    %rdi, %r12
+	addq    %r8, %r12
+
+	mrmovq    (%r12), %rdx
+
+	#movl	8(%rdi,%rax,8), %rdx
+
+	rrmovq  %rax, %r9
+	addq    %rax, %r9
+	addq    %rax, %r9
+	addq    %rax, %r9
+	addq    %rax, %r9
+	addq    %rax, %r9
+	addq    %rax, %r9
+	addq    %rax, %r9
+
+	irmovq $0, %r12
+
+	addq    %r9, %r12
+	addq    %rdi, %r12
+
+	mrmovq    (%r12), %rcx
+
+	#movl	(%rdi,%rax,8), %rcx
+
+	#cmpl	%rcx, %rdx
+	rrmovq  %rcx, %r13
+	rrmovq  %rdx, %r14
+	subq    %r13, %r14
+
+	jge	L13
+
+	rrmovq  %rax, %r9
+	addq    %rax, %r9
+	addq    %rax, %r9
+	addq    %rax, %r9
+	addq    %rax, %r9
+	addq    %rax, %r9
+	addq    %rax, %r9
+	addq    %rax, %r9
+
+	rrmovq  %rdi, %r12
+	addq    %r9, %r12
+	addq    %r8, %r12
+
+	rmmovq  %rcx, (%r12)
+
+	#movl	%rcx, 8(%rdi,%rax,8)
+
+	rrmovq  %rax, %r9
+	addq    %rax, %r9
+	addq    %rax, %r9
+	addq    %rax, %r9
+	addq    %rax, %r9
+	addq    %rax, %r9
+	addq    %rax, %r9
+	addq    %rax, %r9
+
+	rrmovq  %rdi, %r12
+	addq    %r9, %r12
+
+	rmmovq  %rdx, (%r12)
+
+	#movl	%rdx, (%rdi,%rax,8)
+L13:
+	addq	%r11, %rax
+	rrmovq  %rax, %r10
+	#cmpl	%rsi, %rax
+	subq 	%rsi, %r10
+	jl	L14
+	subq	%r11, %rsi
+	jne	L17
+L11:
+	ret
+
+# Stack starts here and grows to lower addresses
+	.pos 0x200
+stack:
