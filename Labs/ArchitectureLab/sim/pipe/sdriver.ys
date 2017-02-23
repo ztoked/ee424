@@ -1,0 +1,188 @@
+#######################################################################
+# Test for copying block of size 4;
+#######################################################################
+	.pos 0
+main:	irmovq Stack, %rsp  	# Set up stack pointer
+
+	# Set up arguments for copy function and then invoke it
+	irmovq $4, %rdx		# src and dst have 4 elements
+	irmovq dest, %rsi	# dst array
+	irmovq src, %rdi	# src array
+	call ncopy		 
+	halt			# should halt with num nonzeros in %rax
+StartFun:
+# zh18779 Zach Halvorsen
+
+#/* $begin ncopy-ys */
+##################################################################
+# ncopy.ys - Copy a src block of len words to dst.
+# Return the number of positive words (>0) contained in src.
+#
+# Include your name and ID here.
+#
+# Describe how and why you modified the baseline code.
+#
+##################################################################
+# Do not modify this portion
+# Function prologue.
+# %rdi = src, %rsi = dst, %rdx = len
+ncopy:
+
+##################################################################
+# You can modify this portion
+    # Loop header
+    xorq %rax,%rax            # count = 0;
+    andq %rdx, %rdx           # check to see if len is 0
+    jle Done                  # if so we are done
+    iaddq $-6, %rdx           # Check to see if all 6 will be able to be processed
+    jl RemainderStart         # if not we just check the remaining values
+
+Loop:
+    mrmovq (%rdi), %r10       # get val1 from src[0]
+    mrmovq 8(%rdi), %r11      # get val2 from src[1]
+    rmmovq %r10, (%rsi)       # put val1 into dest[0]
+    andq %r10, %r10           # compare val1
+    jle First                 # if <= 0, don't increment count, jump forward
+    iaddq $1, %rax            # count++
+
+First:
+    rmmovq %r11, 8(%rsi)      # put val2 into dest[1]
+    andq %r11, %r11           # compare val2
+    jle Second                # if <= 0, don't increment count, jump forward
+    iaddq $1, %rax            # count++
+
+Second:
+    mrmovq 16(%rdi), %r10     # get val1 from src[2]
+    mrmovq 24(%rdi), %r11     # get val2 from src[3]
+    rmmovq %r10, 16(%rsi)     # put val1 into dest[2]
+    andq %r10, %r10           # compare val1
+    jle Third                 # if <= 0, don't increment count, jump forward
+    iaddq $1, %rax            # count++
+
+Third:
+    rmmovq %r11, 24(%rsi)     # put val2 into dest[3]
+    andq %r11, %r11           # compare val2
+    jle Fourth                # if <= 0, don't increment count, jump forward
+    iaddq $1, %rax            # count++
+
+Fourth:
+    mrmovq 32(%rdi), %r10     # get val1 from src[4]
+    mrmovq 40(%rdi), %r11     # get val2 from src[5]
+    rmmovq %r10, 32(%rsi)     # put val1 into dest[4]
+    andq %r10, %r10           # compare val1
+    jle Fifth                 # if <= 0, don't increment count, jump forward
+    iaddq $1, %rax            # count++
+
+Fifth:
+    rmmovq %r11, 40(%rsi)     # put val2 into dest[5]
+    andq %r11, %r11           # compare val2
+    jle Restart               # if <= 0, don't increment count, jump forward
+    iaddq $1, %rax            # count++
+
+Restart:
+    iaddq $48, %rdi           # move src array pointer forward 6 places
+    iaddq $48, %rsi           # move dst array pointer forward 6 places
+    iaddq $-6, %rdx           # Check to see if all 6 will be able to be processed
+    jge Loop                  # if so process next 6
+
+RemainderStart:
+    iaddq $6, %rdx            # go back to current length
+
+Remainder1:
+    iaddq $-1 , %rdx          # len--
+    jl Done                   # if len < 0, we are done
+    mrmovq (%rdi), %r10       # get val1 from src[0]
+    mrmovq 8(%rdi), %r11      # get val2 from src[1]
+    rmmovq %r10, (%rsi)       # put val1 into dest[0]
+    andq %r10, %r10           # compare val1
+    jle Remainder2            # if <= 0, don't increment count, jump forward
+    iaddq $1, %rax            # count++
+
+Remainder2:
+    iaddq $-1 , %rdx          # len--
+    jl Done                   # if len < 0, we are done
+    rmmovq %r11, 8(%rsi)      # put val2 into dest[1]
+    mrmovq 16(%rdi), %r10     # get val1 from src[2]
+    andq %r11, %r11           # compare val1
+    jle Remainder3            # if <= 0, don't increment count, jump forward
+    iaddq $1, %rax            # count++
+
+Remainder3:
+    iaddq $-1 , %rdx          # len--
+    jl Done                   # if len < 0, we are done
+    rmmovq %r10, 16(%rsi)     # put val1 into dest[2]
+    mrmovq 24(%rdi), %r11     # get val2 from src[3]
+    andq %r10, %r10           # compare val1
+    jle Remainder4            # if <= 0, don't increment count, jump forward
+    iaddq $1, %rax            # count++
+
+Remainder4:
+    iaddq $-1 , %rdx          # len--
+    jl Done                   # if len < 0, we are done
+    rmmovq %r11, 24(%rsi)     # put val2 into dest[3]
+    mrmovq 32(%rdi), %r10     # get val1 from src[4]
+    andq %r11, %r11           # compare val2
+    jle Remainder5            # if <= 0, don't increment count, jump forward
+    iaddq $1, %rax            # count++
+
+Remainder5:
+    iaddq $-1 , %rdx          # len--
+    jl Done                   # if len < 0, we are done
+    rmmovq %r10, 32(%rsi)     # put val1 into dest[5]
+    andq %r10, %r10           # compare val1
+    jle Done                  # if <= 0, don't increment count, jump forward
+    iaddq $1, %rax            # count++
+
+##################################################################
+# Do not modify the following section of code
+# Function epilogue.
+Done:
+	ret
+##################################################################
+# Keep the following label at the end of your function
+End:
+#/* $end ncopy-ys */
+EndFun:
+
+###############################
+# Source and destination blocks 
+###############################
+	.align 8
+src:
+	.quad -1
+	.quad 2
+	.quad -3
+	.quad 4
+	.quad 0xbcdefa # This shouldn't get moved
+
+	.align 16
+Predest:
+	.quad 0xbcdefa
+dest:
+	.quad 0xcdefab
+	.quad 0xcdefab
+	.quad 0xcdefab
+	.quad 0xcdefab
+Postdest:
+	.quad 0xdefabc
+
+.align 8
+# Run time stack
+	.quad 0
+	.quad 0
+	.quad 0
+	.quad 0
+	.quad 0
+	.quad 0
+	.quad 0
+	.quad 0
+	.quad 0
+	.quad 0
+	.quad 0
+	.quad 0
+	.quad 0
+	.quad 0
+	.quad 0
+	.quad 0
+
+Stack:

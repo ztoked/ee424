@@ -1,0 +1,61 @@
+# zh18779 Zach Halvorsen
+# Execution begins at address 0
+	.pos 0
+	irmovq stack, %rsp  	# Set up stack pointer
+	call main		# Execute main program
+	halt			# Terminate program
+
+.align 8
+# Source block
+src:
+    .quad 0x00a
+    .quad 0x0b0
+    .quad 0xc00
+# Destination
+dest:
+    .quad 0x111
+    .quad 0x222
+    .quad 0x333
+
+
+
+
+
+main:	irmovq src,%rdi
+        irmovq dest, %rsi
+        irmovq $3, %rdx
+    	call copy_block
+    	ret
+
+copy_block:
+	irmovq	$0, %rax
+	jmp	L10
+L11:
+	mrmovq	(%rdi), %rcx
+	rmmovq	%rcx, (%rsi)
+	xorq	%rcx, %rax
+    irmovq  $1, %r8
+	subq	%r8, %rdx
+
+	#leaq	8(%rsi), %rsi
+    pushq %rax        # save eax which used as temporary for adding the offset
+    irmovq $8, %rax
+    addq %rax, %rsi
+    popq %rax         # restore eax
+
+	#leaq	8(%rdi), %rdi
+    pushq %rax        # save eax which used as temporary for adding the offset
+    irmovq $8, %rax
+    addq %rax, %rdi
+    popq %rax         # restore eax
+L10:
+	andq	%rdx, %rdx
+	jg	L11
+	ret
+
+
+
+
+# Stack starts here and grows to lower addresses
+	.pos 0x200
+stack:
