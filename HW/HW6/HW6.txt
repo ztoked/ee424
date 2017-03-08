@@ -1,0 +1,35 @@
+HW 6
+Zach Halvorsen
+
+424-3
+
+Part 1-
+There are several major problems with using a processor's time stamp counter
+(TSC). The very first is that many processor do not support a TSC. Most Intel
+processor's do but some of their competitors do not. Another problem is that
+when a processor has multiple cores it probably has a TSC for each core and more
+than likely they will never be synced. Even if you keep your program running on
+the same core constantly, it may get suspended or sleep or rest and the count
+might change unexpectedly. TSC's are also not portable with different operating
+systems. Windows does not support TSC's in the same way Unix does. Another
+problem can occur when instructions run out of order. This can cause the counter
+to have a different value than expected.
+
+Part 2-
+I ran the executable many times and I seemed to always get around 5 exceeds
+threshold warnings. This could be considered a strength because it only happened
+5 times. At the same time though this could also be a weakness because that
+means that the timer will be off around 25% of the time. That seems like quite a
+lot. It is a weakness that the value in the timer is only limited to a 32 bit
+number. This will overflow quite quickly. It can only be used as a function
+timer otherwise it could cause a fatal error. One of the problems discussed
+earlier is that the CPU may sleep or be suspended but because the measure
+function is constantly running, it should never be run into this issue.
+
+Part 3-
+The two values I think best effected the accuracy were: VECVALS and VECMAX. As I
+experimented, I found that the lower value I used for both the better. I ended
+up going all the way down to VECVALS = 1 and VECMAX = 2. With these values I was
+able to average less than 1 exceeded threshold.
+
+Part 4-

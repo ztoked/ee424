@@ -1,0 +1,33 @@
+# BYU ECEn 424
+# This is the file you start with for Lab 5.
+# After making your edits and verifying that it works, this is also
+# the file you submit. Do not change the first or last instructions.
+#
+# Zach Halvorsen
+# 3/7/2015
+
+ .pos 0
+    irmovq Stack,%rsp
+# The 18 instructions you can modify start here
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+    nop
+# The 18 instructions you can modify end here
+    halt
+    .pos 0x200
+Stack:
