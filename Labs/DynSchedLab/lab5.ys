@@ -9,24 +9,27 @@
  .pos 0
     irmovq Stack,%rsp
 # The 18 instructions you can modify start here
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
-    nop
+
+    # have to use rsp otherwise it will try to divide by 0
+    divq    %rsp,  %rdi    #1
+    divq    %rsp,  %rdi    #2
+    divq    %rsp,  %rdi    #3
+    divq    %rsp,  %rdi    #4
+    divq    %rsp,  %rdi    #5
+    divq    %rsp,  %rdi    #6
+    divq    %rsp,  %rdi    #7
+    divq    %rsp,  %rdi    #8
+    divq    %rsp,  %rdi    #9
+    divq    %rsp,  %rdi    #10
+    divq    %rsp,  %rdi    #11
+    divq    %rsp,  %rdi    #12
+    divq    %rsp,  %rdi    #13
+    divq    %rsp,  %rdi    #14
+    rmmovq  %rsp, (%rdi)   #15
+    andq    %rdi,  %rsi    #16
+    mrmovq (%rdi), %rdi    #17
+    mrmovq (%rsp), %rdi    #18
+
 # The 18 instructions you can modify end here
     halt
     .pos 0x200
