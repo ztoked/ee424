@@ -3,8 +3,129 @@ ECEn 424
 
 Zach Halvorsen
 
-6.24-
+****************************6.24****************************
+A- best_case = t_avg_seek + t_avg_rotation + 4 * t_max_rotation = 4 + 2 + (4 * 4) = 22 ms
+B- random_case = (t_avg_seek + t_avg_rotation) * 4000 = (4 + 2) * 4000 = 24000 ms = 24 seconds
 
-424.4-
+****************************424.4****************************
+_FUNCTION_|_CPE__|
+_____1____|_15.9_|
+_____2____|_11.3_|
+_____3____|__7.3_|
+_____4____|_15.3_|
+_____5____|_11.2_|
+_____6____|__1.2_|
+_____7____|__2.4_|
 
-424.5-
+Our values were close to those of the book but they were worse because we were
+doing much larger operations per iteration. We were also manipulating data from
+two different vectors instead of one. Even with the larger operations we were
+close to the same values when we started unrolling. This shows how much
+unrolling can effect CPE.
+
+void dotproduct2(vec_ptr u, vec_ptr v, data_t *dest)
+{
+    long int i;
+    *dest = 1.0;
+    int len = vec_length(u);
+    for (i = 0; i < len; i++)
+    {
+    	data_t val1;
+    	data_t val2;
+    	get_vec_element(u, i, &val1);
+    	get_vec_element(v, i, &val2);
+    	*dest = *dest + val1 * val2;
+    }
+}
+
+void dotproduct3(vec_ptr u, vec_ptr v, data_t *dest)
+{
+    long int i;
+    *dest = 1.0;
+    for (i = 0; i < vec_length(u); i++)
+    {
+    	data_t val1 = u->data[i];
+    	data_t val2 = v->data[i];
+    	*dest = *dest + val1 * val2;
+    }
+}
+
+void dotproduct4(vec_ptr u, vec_ptr v, data_t *dest)
+{
+    long int i;
+    double result = 1.0;
+    for (i = 0; i < vec_length(u); i++)
+    {
+    	data_t val1;
+    	data_t val2;
+    	get_vec_element(u, i, &val1);
+    	get_vec_element(v, i, &val2);
+    	result = result + val1 * val2;
+    }
+    *dest = result;
+}
+
+void dotproduct5(vec_ptr u, vec_ptr v, data_t *dest)
+{
+    long int i = 0;
+    data_t val1;
+    data_t val2;
+    *dest = 1.0;
+    long int n = (vec_length(u) + 1) / 2;
+    switch (vec_length(u) % 2) {
+    case 0: do { get_vec_element(u, i, &val1);
+                 get_vec_element(v, i, &val2);
+                 *dest = *dest + val1 * val2;
+                 i++;
+    case 1:      get_vec_element(u, i, &val1);
+                 get_vec_element(v, i, &val2);
+                 *dest = *dest + val1 * val2;
+                 i++;
+            } while (--n > 0);
+    }
+}
+
+void dotproduct6(vec_ptr u, vec_ptr v, data_t *dest)
+{
+    long i;
+    long length = vec_length(u);
+    long limit = length-1;
+    data_t *data1 = get_vec_start(u);
+    data_t *data2 = get_vec_start(v);
+    data_t acc0 = 1.0;
+    data_t acc1 = 1.0;
+    for(i = 0; i < limit; i+=2) {
+        acc0 = acc0 + data1[i] * data2[i];
+        acc1 = acc1 + data1[i+1] * data2[i+1];
+    }
+    for(; i < length; i++) {
+        acc0 = acc0 + data1[i] * data2[i];
+    }
+    *dest = acc0 + acc1;
+}
+
+void dotproduct7(vec_ptr u, vec_ptr v, data_t *dest)
+{
+    long i;
+    long length = vec_length(u);
+    long limit = length-1;
+    data_t *data1 = get_vec_start(u);
+    data_t *data2 = get_vec_start(v);
+    data_t acc = 1.0;
+    for(i = 0; i < limit; i+=2) {
+        acc = acc +
+            (data1[i] * data2[i]) + (data1[i+1] * data2[i+1]);
+    }
+    for(; i < length; i++) {
+        acc = acc + data1[i] * data2[i];
+    }
+    *dest = acc;
+}
+
+****************************424.5****************************
+There are two arrays that it runs tests on. It sorts one of the arrays and
+leaves the other as is. Then it runs tests on them. The sorted array does not
+have any mis-predictions and the unsorted does. We calculated branch
+mis-prediction penalty by 2 * (unpredictable - predictable) = 2 * (27-12) = 30.
+We optimized the getbrpen to -O4 where it started to use conditional moves which
+eliminated the branch mis-prediction problems. We got values 2 * (5-5) = 0.

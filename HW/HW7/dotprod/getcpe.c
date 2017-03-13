@@ -3,7 +3,7 @@
  * execution time (using routines from timer.c) The goal is to redo
  * the sequence of optimizations CS:APP2 Chapter 5 (showing the
  * performance benefits at each point) for a dot product function
- * (rather than the combine code used in the text). 
+ * (rather than the combine code used in the text).
  */
 
 #include <stdio.h>
@@ -15,7 +15,7 @@
  * enough to make measurement overhead negligible, but short enough to
  * reduce likelihood of capturing a portion of a context switch. The
  * display_CPUspeed() function outputs estimated CPU clock frequency
- * (and # clocks in a 10ms tick interval) as a sanity check. 
+ * (and # clocks in a 10ms tick interval) as a sanity check.
  */
 #define CMIN 1000000   /* 1M cycles */
 
@@ -83,7 +83,7 @@ void dumpdatapts()
 
 /* The function lsfit() does a linear least-squares fit on the
  * measurements from each vector length. Equation for a
- *  straight line is given by 
+ *  straight line is given by
  *	 y = mx + b
  *  where m is the slope of the line and b is the y-intercept.
  *
@@ -93,19 +93,19 @@ void dumpdatapts()
  *      sumxy = x1*y1 + x2*y2 + ... + xn*yn
  *      sumxx = x1*x1 + x2*x2 + ... + xn*xn
  *
- *  The slope and y-intercept for the least-squares line can be 
+ *  The slope and y-intercept for the least-squares line can be
  *  calculated using the following equations:
- *        slope (m) = ( sumx*sumy - n*sumxy ) / ( sumx*sumx - n*sumxx ) 
+ *        slope (m) = ( sumx*sumy - n*sumxy ) / ( sumx*sumx - n*sumxx )
  *  y-intercept (b) = ( sumy - slope*sumx ) / n
  *
- * 
+ *
  */
-void lsfit(void) 
+void lsfit(void)
 {
     double sumx, sumy, sumxy, sumxx;
     double slope, y_intercept;
     int i;
-    
+
     sumx = sumy = sumxy = sumxx = 0.0;
     for (i = 0; i < VECVALS; i++)
     {
@@ -120,8 +120,8 @@ void lsfit(void)
     y_intercept = (sumy - slope * sumx) / VECVALS;
 
     printf("Measured CPE for current function: %.1f\n", slope);
-    
-    /* more verbose output for debugging 
+
+    /* more verbose output for debugging
     printf ("The linear equation that best fits the given data:\n");
     printf ("       y = %6.2lfx + %6.2lf\n", slope, y_intercept); */
     /* dumpdatapts();  for debugging */
@@ -156,7 +156,7 @@ void sortcycle(void)
 		done = 0;
 	    }
 	}
-	
+
     } while (!done) ;
 }
 
@@ -183,8 +183,8 @@ void testbest()
     if ((((double) cycle[2] - cycle[0]) / cycle[2]) > THRESHOLD)
     {
 	printf("Result difference exceeds threshold: ");
-	printf("Best time = %u, third best = %u, diff: %.2f%%\n", 
-	       cycle[0], cycle[2], 100.0 * 
+	printf("Best time = %u, third best = %u, diff: %.2f%%\n",
+	       cycle[0], cycle[2], 100.0 *
 	       ((double) cycle[2] - cycle[0]) / cycle[2]);
     }
 }
@@ -232,13 +232,114 @@ void dotproduct1(vec_ptr u, vec_ptr v, data_t *dest)
     *dest = 1.0;
     for (i = 0; i < vec_length(u); i++)
     {
-	data_t val1;
-	data_t val2;
-	get_vec_element(u, i, &val1);
-	get_vec_element(v, i, &val2);
-	*dest = *dest + val1 * val2;
+    	data_t val1;
+    	data_t val2;
+    	get_vec_element(u, i, &val1);
+    	get_vec_element(v, i, &val2);
+    	*dest = *dest + val1 * val2;
     }
 }
+
+void dotproduct2(vec_ptr u, vec_ptr v, data_t *dest)
+{
+    long int i;
+    *dest = 1.0;
+    int len = vec_length(u);
+    for (i = 0; i < len; i++)
+    {
+    	data_t val1;
+    	data_t val2;
+    	get_vec_element(u, i, &val1);
+    	get_vec_element(v, i, &val2);
+    	*dest = *dest + val1 * val2;
+    }
+}
+
+void dotproduct3(vec_ptr u, vec_ptr v, data_t *dest)
+{
+    long int i;
+    *dest = 1.0;
+    for (i = 0; i < vec_length(u); i++)
+    {
+    	data_t val1 = u->data[i];
+    	data_t val2 = v->data[i];
+    	*dest = *dest + val1 * val2;
+    }
+}
+
+void dotproduct4(vec_ptr u, vec_ptr v, data_t *dest)
+{
+    long int i;
+    double result = 1.0;
+    for (i = 0; i < vec_length(u); i++)
+    {
+    	data_t val1;
+    	data_t val2;
+    	get_vec_element(u, i, &val1);
+    	get_vec_element(v, i, &val2);
+    	result = result + val1 * val2;
+    }
+    *dest = result;
+}
+
+void dotproduct5(vec_ptr u, vec_ptr v, data_t *dest)
+{
+    long int i = 0;
+    data_t val1;
+    data_t val2;
+    *dest = 1.0;
+    long int n = (vec_length(u) + 1) / 2;
+    switch (vec_length(u) % 2) {
+    case 0: do { get_vec_element(u, i, &val1);
+                 get_vec_element(v, i, &val2);
+                 *dest = *dest + val1 * val2;
+                 i++;
+    case 1:      get_vec_element(u, i, &val1);
+                 get_vec_element(v, i, &val2);
+                 *dest = *dest + val1 * val2;
+                 i++;
+            } while (--n > 0);
+    }
+}
+
+void dotproduct6(vec_ptr u, vec_ptr v, data_t *dest)
+{
+    long i;
+    long length = vec_length(u);
+    long limit = length-1;
+    data_t *data1 = get_vec_start(u);
+    data_t *data2 = get_vec_start(v);
+    data_t acc0 = 1.0;
+    data_t acc1 = 1.0;
+    for(i = 0; i < limit; i+=2) {
+        acc0 = acc0 + data1[i] * data2[i];
+        acc1 = acc1 + data1[i+1] * data2[i+1];
+    }
+    for(; i < length; i++) {
+        acc0 = acc0 + data1[i] * data2[i];
+    }
+    *dest = acc0 + acc1;
+}
+
+void dotproduct7(vec_ptr u, vec_ptr v, data_t *dest)
+{
+    long i;
+    long length = vec_length(u);
+    long limit = length-1;
+    data_t *data1 = get_vec_start(u);
+    data_t *data2 = get_vec_start(v);
+    data_t acc = 1.0;
+    for(i = 0; i < limit; i+=2) {
+        acc = acc +
+            (data1[i] * data2[i]) + (data1[i+1] * data2[i+1]);
+    }
+    for(; i < length; i++) {
+        acc = acc + data1[i] * data2[i];
+    }
+    *dest = acc;
+}
+
+
 
 /* repeatedly calls the function to measure until the total execution
  * time (in cycles) is above specified threshold */
@@ -246,19 +347,19 @@ unsigned measure(void)
 {
     unsigned cmeas, cycles;
     int cnt = 1;
-    do 
+    do
     {
 	int c = cnt;
-	dotproduct1(V1,V2,&result);    /* first call to warm up cache */
+	dotproduct7(V1,V2,&result);    /* first call to warm up cache */
 	start_counter();
 	while (c-- > 0)
-	    dotproduct1(V1,V2,&result);
+	    dotproduct7(V1,V2,&result);
 	cmeas = get_counter();
 	cycles = cmeas / cnt;
 	cnt += cnt;
     } while (cmeas < CMIN);  /* make sure long enough */
     return cycles;
-    
+
     /* printf("Measured function required %u clock cycles (per call)\n", cycles);
        printf("  cnt = %d, cmeas = %u\n", cnt, cmeas); */
 }
@@ -267,16 +368,16 @@ unsigned measure(void)
  * run through entire range of vector lengths, making repeated
  * measurements of each, then determine slope of line that best
  * matches data, and finally output results as CPE. */
-main()
+void main()
 {
     int i,j;
     unsigned ccount;
-    
+
     /* The next two lines are just a sanity check -- particularly
        useful when trying on a new platform. Can comment out when
        doing repeated runs thereafter. */
     /* display_CPUspeed();
-    printf("Cycle threshold for measurements: %.2f (millions)\n\n", 
+    printf("Cycle threshold for measurements: %.2f (millions)\n\n",
     (double) CMIN / 1e6);  */
 
     clearmaster();
@@ -298,5 +399,3 @@ main()
     /* dumpmaster();      for debugging */
     lsfit();	       /* do linear fit */
 }
-
-

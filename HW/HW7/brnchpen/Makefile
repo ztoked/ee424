@@ -1,6 +1,6 @@
-# Edit the code below to use different optimization levels. 
+# Edit the code below to use different optimization levels.
 
-CFLAGS0 = 
+CFLAGS0 =
 CFLAGS1 = -O1
 CFLAGS2 = -O2
 CFLAGS3 = -O3
@@ -16,7 +16,7 @@ timer.o:	timer.c timer.h
 	gcc -c -O2 timer.c       # don't increase above -O2!
 
 getbrpen.o:	getbrpen.c timer.h
-	gcc -c $(CFLAGS0) getbrpen.c
+	gcc -c $(CFLAGS4) getbrpen.c
 
 clean:
 	rm *.o brnchpen

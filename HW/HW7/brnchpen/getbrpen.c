@@ -18,11 +18,11 @@
  * enough to make measurement overhead negligible, but short enough to
  * reduce likelihood of capturing a portion of a context switch. The
  * display_CPUspeed() function outputs estimated CPU clock frequency
- * (and # clocks in a 10ms tick interval) as a sanity check. 
+ * (and # clocks in a 10ms tick interval) as a sanity check.
  */
 #define CMIN 1000000   /* 1M cycles */
 
-#define MEASMAX  20     /* number of runs to make to get single
+#define MEASMAX  100     /* number of runs to make to get single
 			 * trustworthy measurement */
 #define THRESHOLD 0.005 /* max difference we'd like to see between
 			 * timings of top 3 runs */
@@ -62,7 +62,7 @@ void sortcycle(void)
 		done = 0;
 	    }
 	}
-	
+
     } while (!done) ;
 }
 
@@ -121,7 +121,7 @@ void testbest()
     if ((((double) cycle[2] - cycle[0]) / cycle[2]) > THRESHOLD)
     {
 	printf("  Difference exceeds threshold: ");
-	printf("third best = %u, diff: %.2f%%\n", cycle[2], 100.0 * 
+	printf("third best = %u, diff: %.2f%%\n", cycle[2], 100.0 *
 	       ((double) cycle[2] - cycle[0]) / cycle[2]);
     }
 }
@@ -156,7 +156,7 @@ int measurecnt(void)
     int cnt = 1;
     volatile int res = 0;  /* don't let compiler optimize away fn
 			      calls */
-    do 
+    do
     {
 	int c = cnt;
 	res += absdiff(0,1);    /* first call to warm up cache */
@@ -171,14 +171,14 @@ int measurecnt(void)
 }
 
 /* repeatedly calls the function to measure -- argument is iteration
- * count */ 
+ * count */
 unsigned measure(int iter)
 {
     int i;
     unsigned cmeas,cycles;
     volatile int res = 0;  /* don't let compiler optimize away fn
 			    * calls */
-    
+
     res += absdiff(0,1);  /* warm up cache */
     start_counter();
     for (i = 0; i < iter; i++)
@@ -193,16 +193,16 @@ unsigned measure(int iter)
  * length, allocate vectors of that size, initialize to appropriate
  * values for both the related and random scenarios, make the runs,
  * output the results. */
-main()
+void main()
 {
     int i,itercount;
     unsigned ccount;
-    
+
     /* The next two lines are just a sanity check -- particularly
        useful when trying on a new platform. Can comment out when
        doing repeated runs thereafter. */
     /* display_CPUspeed();
-    printf("Cycle threshold for measurements: %.2f (millions)\n\n", 
+    printf("Cycle threshold for measurements: %.2f (millions)\n\n",
     (double) CMIN / 1e6);  */
 
     itercount = measurecnt();
@@ -210,10 +210,10 @@ main()
 
     /* allocate arrays for both scenarios */
     allocarrays(itercount);
-    
+
     /* initialize arrays for scenario 1: valA[i] < valB[i] */
     initarrays1(itercount);
-    
+
     /* do multiple runs for this scenario, recording each */
     clearlist();
     for (i = 0; i < MEASMAX; i++)
@@ -228,7 +228,7 @@ main()
 
     /* initialize arrays for scenario 2: valA[i] ? valB[i] */
     initarrays2(itercount);
-    
+
     /* do multiple runs for this scenario, recording each */
     clearlist();
     for (i = 0; i < MEASMAX; i++)

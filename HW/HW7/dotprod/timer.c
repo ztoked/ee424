@@ -14,6 +14,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include "timer.h"
 
 static unsigned start_hi = 0;
@@ -24,8 +25,8 @@ static unsigned end_lo = 0;
 /* the only function that includes the rdtsc instruction */
 void access_counter(unsigned *hi, unsigned *lo)
 {
-    asm("rdtsc; movl %%edx,%0; movl %%eax,%1"   
-	: "=r" (*hi), "=r" (*lo) 
+    asm("rdtsc; movl %%edx,%0; movl %%eax,%1"
+	: "=r" (*hi), "=r" (*lo)
 	:
 	: "%edx", "%eax");
 }
@@ -56,7 +57,7 @@ double dget_counter(void)
 {
     unsigned hi, lo, borrow;
     double result;
-    
+
     access_counter(&end_hi, &end_lo);
     lo = end_lo - start_lo;
     borrow = lo > end_lo;
@@ -75,9 +76,8 @@ void display_CPUspeed(void)
 
     start_counter();
     sleep(sleeptime);
-    rate = dget_counter() / (1e9 * sleeptime); 
-    
+    rate = dget_counter() / (1e9 * sleeptime);
+
     printf("Estimated CPU clock rate: %.2f GHz\n", rate);
     printf("Estimated clocks between 10ms ticks: %.2f (millions)\n", rate * 10.0);
 }
-
