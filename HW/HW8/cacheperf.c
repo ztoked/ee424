@@ -2,9 +2,9 @@
 #include "timer.h"
 
 /* try different sizes here */
-#define SQSIZE 16
+#define SQSIZE 256
 
-struct point_color 
+struct point_color
 {
     int c;
     int m;
@@ -18,6 +18,7 @@ int main()
 {
     int i,j;
     unsigned time1, time2, time3;
+    printf("Testing with SQSIZE: %d\n", SQSIZE);
     start_counter();
     for (i = 0; i < SQSIZE; i++)
     {
@@ -43,7 +44,7 @@ int main()
 	}
     }
     time2 = get_counter();
-    
+
     start_counter();
     for (i = 0; i < SQSIZE; i++)
     {
@@ -60,4 +61,3 @@ int main()
     printf("T2 (Warm cache time):    %12u  (1.0x)\n", time2);
     printf("T3 (Poor locality time): %12u  (%.1fx)\n", time3,(double)time3/time2);
 }
-

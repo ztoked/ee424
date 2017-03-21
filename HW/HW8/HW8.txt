@@ -4,10 +4,10 @@ HW 8
 
 **********************Problem 6.26**********************
 Cache|__m__|__C__|__B__|__E__|__S__|__t__|__s__|__b__|
-__1__|__32_|__X__|__8__|__1__|__X__|__21_|__8__|__3__|
-__2__|__32_|_2048|__2__|__X__|_128_|__23_|__7__|__2__|
-__3__|__32_|_1024|__X__|__8__|__64_|__X__|__X__|__1__|
-__4__|__32_|_1024|__2__|__2__|__16_|__23_|__4__|__X__|
+__1__|__32_|_2048|__8__|__1__|_256_|__21_|__8__|__3__|
+__2__|__32_|_2048|__4__|__4__|_128_|__23_|__7__|__2__|
+__3__|__32_|_1024|__2__|__8__|__64_|__25_|__6__|__1__|
+__4__|__32_|_1024|__32_|__2__|__16_|__23_|__4__|__5__|
 
 **********************Problem 6.27**********************
 Set 1-
@@ -26,9 +26,68 @@ B-    Operation |  Addr | Hit? | Read Value (or unknown)
            READ | 0xFFD | HIT  | C0
 
 **********************Problem 6.38**********************
-
+A-
+    1024
+B-
+    128
+C-
+    12.5%
 
 **********************Problem 6.39**********************
-
+A-
+    1024
+B-
+    1024
+C-
+    100%
 
 **********************Problem 424-7*********************
+
+Testing with SQSIZE: 16
+T1 (Cold cache time):           15683  (2.0x)
+T2 (Warm cache time):            8033  (1.0x)
+T3 (Poor locality time):         8058  (1.0x)
+
+Testing with SQSIZE: 32
+T1 (Cold cache time):           52833  (1.8x)
+T2 (Warm cache time):           30067  (1.0x)
+T3 (Poor locality time):        29941  (1.0x)
+
+Testing with SQSIZE: 64
+T1 (Cold cache time):          197325  (1.7x)
+T2 (Warm cache time):          115683  (1.0x)
+T3 (Poor locality time):       131891  (1.1x)
+
+Testing with SQSIZE: 128
+T1 (Cold cache time):          774100  (1.7x)
+T2 (Warm cache time):          460925  (1.0x)
+T3 (Poor locality time):       891583  (1.9x)
+
+Testing with SQSIZE: 256
+T1 (Cold cache time):         3070958  (1.7x)
+T2 (Warm cache time):         1776942  (1.0x)
+T3 (Poor locality time):      4435408  (2.5x)
+
+Testing with SQSIZE: 512
+T1 (Cold cache time):        10569925  (1.4x)
+T2 (Warm cache time):         7335391  (1.0x)
+T3 (Poor locality time):     21895766  (3.0x)
+
+Testing with SQSIZE: 1024
+T1 (Cold cache time):        35784076  (1.4x)
+T2 (Warm cache time):        26219138  (1.0x)
+T3 (Poor locality time):     81289800  (3.1x)
+
+Testing with SQSIZE: 2048
+T1 (Cold cache time):        96023853  (2.0x)
+T2 (Warm cache time):        48841594  (1.0x)
+T3 (Poor locality time):    169008210  (3.5x)
+
+These tests are very inconsistent. Every time I run a test it has a different result. With all of the examples given above I tried to use the most average I could find. Most of the time the cache had the worst values for a cold cache when I used smaller test cases. This would probably be because by the time the long cold cache test is over the cache is warmed up and ready to go. The largest jump that I had between tests for Good/Poor locality was between SQSIZE 64 and 128. It does keep getting worse as the SQSIZE grows though. I think that the difference does not change linearly because the more writes there are the more misses there will be as well so they start to plain a little as the SQSIZE grows. After changing the Makefile value to -O3 the values got substantially worse. I did several tests with an SQSIZE of 256 and got an average result of:
+
+Testing with SQSIZE: 256
+T1 (Cold cache time):         1719142  (5.9x)
+T2 (Warm cache time):          292300  (1.0x)
+T3 (Poor locality time):      1742075  (6.0x)
+
+This would be because the way the compiler changes things in the inner loops it actually makes poor locality and cold cache times even worse.
