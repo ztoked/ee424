@@ -10,13 +10,13 @@
  * Please fill in the following team struct
  */
 team_t team = {
-    "cougs",			/* Team name */
+    "we_perf",			/* Team name */
 
-    "Cosmo Q. Cougar",		/* First member full name */
-    "cosmo@bye.edu",		/* First member email address */
+    "Christian Leishman",		/* First member full name */
+    "johncleishman@gmail.com",		/* First member email address */
 
-    "",		  /* Second member full name (leave blank if none) */
-    ""		  /* Second member email addr (leave blank if none) */
+    "Zachary Halvorsen",		  /* Second member full name (leave blank if none) */
+    "ztoked@gmail.com"		  /* Second member email addr (leave blank if none) */
 };
 
 /***************
@@ -36,11 +36,12 @@ void naive_rotate(int dim, pixel *src, pixel *dst)
     int i, j;
 
     for (i = 0; i < dim; i++)
-	for (j = 0; j < dim; j++)
-	    dst[RIDX(dim-1-j, i, dim)] = src[RIDX(i, j, dim)];
+	   for (j = 0; j < dim; j++)
+	      dst[RIDX(dim-1-j, i, dim)] = src[RIDX(i, j, dim)];
 }
 
 /*
+ * TODO
  * rotate - Your current working version of rotate
  * IMPORTANT: This is the version you will be graded on
  */
@@ -48,24 +49,22 @@ char rotate_descr[] = "rotate: Current working version";
 void rotate(int dim, pixel *src, pixel *dst)
 {
     int i, j, k;
-    int numPixels = dim*dim;
+    int num_pix = dim*dim;
 
-    dst += numPixels - dim;
-    for (i = 0; i < dim; i+=32) {
-        for (j = 0; j < dim; j++) {
-            *dst = *src;
-            src += dim;
-            for(k = 1; k < 31; k++) {
+    dst += num_pix - dim;
+    for (i = 0; i < dim; i += 32) {
+        for (j = 0; j < dim; ++j) {
+            for(k = 0; k < 31; ++k){
                 *(dst + k) = *src;
                 src += dim;
             }
             *(dst + 31) = *src;
 
             dst -= dim;
-            src -= (dim * 31) - 1;
+            src -= (dim*31) - 1;
         }
-        dst += 32 + numPixels;
-        src += dim * 31;
+        dst += 32 + num_pix;
+        src += dim*31;
     }
 }
 
@@ -102,6 +101,14 @@ typedef struct {
     int num;
 } pixel_sum;
 
+typedef struct{
+    int red;
+    int green;
+    int blue;
+} pixel_int;
+
+int dimension;
+
 /* Compute min and max of two integers, respectively */
 static int min(int a, int b) { return (a < b ? a : b); }
 static int max(int a, int b) { return (a > b ? a : b); }
@@ -126,7 +133,6 @@ static void accumulate_sum(pixel_sum *sum, pixel p)
     sum->green += (int) p.green;
     sum->blue += (int) p.blue;
     sum->num++;
-    return;
 }
 
 /*
@@ -137,7 +143,6 @@ static void assign_sum_to_pixel(pixel *current_pixel, pixel_sum sum)
     current_pixel->red = (unsigned short) (sum.red/sum.num);
     current_pixel->green = (unsigned short) (sum.green/sum.num);
     current_pixel->blue = (unsigned short) (sum.blue/sum.num);
-    return;
 }
 
 /*
@@ -151,8 +156,8 @@ static pixel avg(int dim, int i, int j, pixel *src)
 
     initialize_pixel_sum(&sum);
     for(ii = max(i-1, 0); ii <= min(i+1, dim-1); ii++)
-	for(jj = max(j-1, 0); jj <= min(j+1, dim-1); jj++)
-	    accumulate_sum(&sum, src[RIDX(ii, jj, dim)]);
+        for(jj = max(j-1, 0); jj <= min(j+1, dim-1); jj++)
+            accumulate_sum(&sum, src[RIDX(ii, jj, dim)]);
 
     assign_sum_to_pixel(&current_pixel, sum);
     return current_pixel;
@@ -171,43 +176,292 @@ void naive_smooth(int dim, pixel *src, pixel *dst)
     int i, j;
 
     for (i = 0; i < dim; i++)
-	for (j = 0; j < dim; j++)
-	    dst[RIDX(i, j, dim)] = avg(dim, i, j, src);
+        for (j = 0; j < dim; j++)
+            dst[RIDX(i, j, dim)] = avg(dim, i, j, src);
 }
 
 /*
+ * TODO
  * smooth - Your current working version of smooth.
  * IMPORTANT: This is the version you will be graded on
  */
-char smooth_descr[] = "smooth: Current working version";
-void smooth(int dim, pixel *src, pixel *dst)
-{
-    int i, j, ii, jj;
 
-    pixel_sum sum;
-    pixel *current_pixel;
-
-    for (i = 0; i < dim; i++) {
-    	for (j = 0; j < dim; j++) {
-            current_pixel = &dst[RIDX(i, j, dim)];
-            sum.red = sum.green = sum.blue = 0;
-            sum.num = 0;
-            for(ii = max(i-1, 0); ii <= min(i+1, dim-1); ii++) {
-            	for(jj = max(j-1, 0); jj <= min(j+1, dim-1); jj++) {
-                    pixel *cur = &src[RIDX(ii, jj, dim)];
-                    sum.red += cur->red;
-                    sum.green += cur->green;
-                    sum.blue += cur->blue;
-                    sum.num++;
-                }
-            }
-            current_pixel->red = (unsigned short) (sum.red/sum.num);
-            current_pixel->green = (unsigned short) (sum.green/sum.num);
-            current_pixel->blue = (unsigned short) (sum.blue/sum.num);
-        }
-    }
+static void reset_cache(pixel_int *cache){
+    cache->red = cache->green = cache->blue = 0;
 }
 
+static void get_pixel(pixel_int *cache, pixel *src){
+    cache->red += src->red;
+    cache->green += src->green;
+    cache->blue += src->blue;
+}
+
+static void div_result(pixel *result, pixel_int *cache, int div){
+    result->red   = cache->red/div;
+    result->green = cache->green/div;
+    result->blue  = cache->blue/div;
+}
+
+static void up(pixel *src){
+    src-=dimension;
+}
+
+static void down(pixel *src){
+    src+=dimension;
+}
+
+static void left(pixel *src){
+    src--;
+}
+
+static void right(pixel *src){
+    src++;
+}
+
+ static void get_corners(int dim, pixel *src, pixel *dst){
+    pixel_int cache;
+    pixel result;
+
+    // TOPLEFT
+    reset_cache(&cache);
+    get_pixel(&cache, src);
+    src++;
+    get_pixel(&cache, src);
+    src+=dim;
+    get_pixel(&cache, src);
+    src--;
+    get_pixel(&cache, src);
+    src--;
+
+    div_result(&result, &cache, 4);
+    *dst = result;
+    dst += dim-1;
+
+    // top-right
+    reset_cache(&cache);
+    get_pixel(&cache, src);
+    src--;
+    get_pixel(&cache, src);
+    src+=dim;
+    get_pixel(&cache, src);
+    src++;
+    get_pixel(&cache, src);
+    src+=1+dim*(dim-3);
+
+    div_result(&result, &cache, 4);
+    *dst = result;
+    dst+=1+dim*(dim-2);
+
+    // bottom-left
+    reset_cache(&cache);
+    get_pixel(&cache, src);
+    src++;
+    get_pixel(&cache, src);
+    src-=dim;
+    get_pixel(&cache, src);
+    src--;
+    get_pixel(&cache, src);
+    src+=dim-1;
+
+    div_result(&result, &cache, 4);
+    *dst = result;
+    dst+=dim-1;
+
+    // bottom-right
+    reset_cache(&cache);
+    get_pixel(&cache, src);
+    src--;
+    get_pixel(&cache, src);
+    src+=dim;
+    get_pixel(&cache, src);
+    src++;
+    get_pixel(&cache, src);
+
+    div_result(&result, &cache, 4);
+    *dst = result;
+}
+
+static void get_top_border(int pos,int dim,pixel *src,pixel *dst){
+    pixel_int cache;
+    pixel result;
+    reset_cache(&cache);
+
+    src += pos;
+    dst += pos;
+
+    get_pixel(&cache, src);
+    src--;
+    get_pixel(&cache, src);
+    src+=dim;
+    get_pixel(&cache, src);
+    src++;
+    get_pixel(&cache, src);
+    src++;
+    get_pixel(&cache, src);
+    src-=dim;
+    get_pixel(&cache, src);
+
+    div_result(&result, &cache, 6);
+    *dst = result;
+}
+
+static void get_left_border(int pos,int dim,pixel *src,pixel *dst){
+    pixel_int cache;
+    pixel result;
+    reset_cache(&cache);
+
+    src += pos;
+    dst += pos;
+
+    get_pixel(&cache, src);
+    src-=dim;
+    get_pixel(&cache, src);
+    src++;
+    get_pixel(&cache, src);
+    src+=dim;
+    get_pixel(&cache, src);
+    src+=dim;
+    get_pixel(&cache, src);
+    src--;
+    get_pixel(&cache, src);
+
+    div_result(&result, &cache, 6);
+    *dst = result;
+}
+
+static void get_bottom_border(int pos,int dim,pixel *src,pixel *dst){
+    pixel_int cache;
+    pixel result;
+    reset_cache(&cache);
+
+    src += pos;
+    dst += pos;
+
+    get_pixel(&cache, src);
+    src++;
+    get_pixel(&cache, src);
+    src-=dim;
+    get_pixel(&cache, src);
+    src--;
+    get_pixel(&cache, src);
+    src--;
+    get_pixel(&cache, src);
+    src+=dim;
+    get_pixel(&cache, src);
+
+    div_result(&result, &cache, 6);
+    *dst = result;
+}
+
+static void get_right_border(int pos,int dim,pixel *src,pixel *dst){
+    pixel_int cache;
+    pixel result;
+    reset_cache(&cache);
+
+    src += pos;
+    dst += pos;
+
+    get_pixel(&cache, src);
+    src-=dim;
+    get_pixel(&cache, src);
+    src--;
+    get_pixel(&cache, src);
+    src+=dim;
+    get_pixel(&cache, src);
+    src+=dim;
+    get_pixel(&cache, src);
+    src++;
+    get_pixel(&cache, src);
+
+    div_result(&result, &cache, 6);
+    *dst = result;
+}
+
+char smooth_descr[] = "smooth: Developing new algo";
+void smooth(int dim, pixel *src, pixel *dst){
+    int i,j;
+    pixel_int top_left;
+    pixel_int top_right;
+    pixel_int bot_left;
+    pixel_int bot_right;
+
+    dimension = dim;
+
+    get_corners(dim,src,dst);
+
+    for(j = 1;j < dim-1;j++){
+        get_top_border(j,dim,src,dst);
+        get_bottom_border((dim-1)*dim+j,dim,src,dst);
+    }
+
+    for(i = 1;i < dim-1;i++){
+        get_left_border(i*dim,dim,src,dst);
+        get_right_border(i*dim+dim-1,dim,src,dst);
+    }
+
+    dst+=1+dim;
+    src+=1+dim;
+
+    for(i = 1;i < dim-1; i+=2){
+        for(j = 1;j < dim-1;j+=2){
+            top_left.red = src->red;
+            top_left.green = src->green;
+            top_left.blue = src->blue;
+            src++;
+            get_pixel(&top_left, src);
+            src+=dim;
+            get_pixel(&top_left, src);
+            src--;
+            get_pixel(&top_left, src);
+            src--;
+            top_right = bot_left = bot_right = top_left;
+            get_pixel(&top_left, src);
+            src-=dim;
+            get_pixel(&top_left, src);
+            bot_left = top_left;
+            src-=dim;
+            get_pixel(&top_left, src);
+            src++;
+            get_pixel(&top_left, src);
+            get_pixel(&top_right, src);
+            src++;
+            get_pixel(&top_left, src);
+            get_pixel(&top_right, src);
+            src++;
+            get_pixel(&top_right, src);
+            src+=dim;
+            get_pixel(&bot_right, src);
+            get_pixel(&top_right, src);
+            src+=dim;
+            get_pixel(&bot_right, src);
+            get_pixel(&top_right, src);
+            src+=dim;
+            get_pixel(&bot_right, src);
+            src--;
+            get_pixel(&bot_right, src);
+            get_pixel(&bot_left, src);
+            src--;
+            get_pixel(&bot_right, src);
+            get_pixel(&bot_left, src);
+            src--;
+            get_pixel(&bot_left, src);
+            src-=2*dim-3;
+
+            div_result(dst, &top_left, 9);
+            dst+=dim;
+            div_result(dst, &bot_left, 9);
+            dst++;
+            div_result(dst, &bot_right, 9);
+            dst-=dim;
+            div_result(dst, &top_right, 9);
+            dst++;
+            }
+
+        src+=dim+2;
+        dst+=dim+2;
+    }
+
+}
 
 /*********************************************************************
  * register_smooth_functions - Register all of your different versions
