@@ -1,0 +1,192 @@
+Zach Halvorsen
+HW 10
+ECEN 424
+
+**************************Problem 8.18**************************
+
+A- 112002 POSSIBLE
+B- 211020 NOT POSSIBLE
+C- 102120 POSSIBLE
+D- 122001 NOT POSSIBLE
+E- 100212 POSSIBLE
+
+*************************Problem 424-10*************************
+
+I ran this code several times on several machines. It appears that the parent
+always runs before the child. It also looks like the child always takes
+substantially more time. It seems like it mostly takes about 6 ms longer for the
+overhead of forking.
+
+zachmint@zachmint-MacBookPro ~/School/EE424/HW/HW10/forktiming $ ./run10
+Parent: 00419784 ticks (0.17 ms)
+Child:  00565084 ticks (0.23 ms)
+
+Parent: 00329850 ticks (0.13 ms)
+Child:  00475375 ticks (0.19 ms)
+
+Parent: 00292600 ticks (0.12 ms)
+Child:  00445569 ticks (0.18 ms)
+
+Parent: 00333067 ticks (0.13 ms)
+Child:  00480205 ticks (0.19 ms)
+
+Parent: 00299950 ticks (0.12 ms)
+Child:  00458135 ticks (0.18 ms)
+
+Parent: 00207163 ticks (0.08 ms)
+Child:  00281641 ticks (0.11 ms)
+
+Parent: 00309992 ticks (0.12 ms)
+Child:  00468040 ticks (0.19 ms)
+
+Parent: 00274279 ticks (0.11 ms)
+Child:  00397079 ticks (0.16 ms)
+
+Parent: 00305000 ticks (0.12 ms)
+Child:  00442217 ticks (0.18 ms)
+
+Parent: 00317500 ticks (0.13 ms)
+Child:  00487963 ticks (0.20 ms)
+
+*************************Problem 424-11*************************
+
+zachmint@zachmint-MacBookPro ~/School/EE424/HW/HW10 $ ./catch
+Just try to stop me!
+^CNot so simple -- I can't be stopped with a ctr-c!
+^CNot so simple -- I can't be stopped with a ctr-c!
+^CNot so simple -- I can't be stopped with a ctr-c!
+^CNot so simple -- I can't be stopped with a ctr-c!
+^CNot so simple -- I can't be stopped with a ctr-c!
+^ZNope -- I refuse to be put in the background!
+^ZNope -- I refuse to be put in the background!
+^ZNope -- I refuse to be put in the background!
+^ZNope -- I refuse to be put in the background!
+^ZNope -- I refuse to be put in the background!
+^CNot so simple -- I can't be stopped with a ctr-c!
+^CNot so simple -- I can't be stopped with a ctr-c!
+^ZNope -- I refuse to be put in the background!
+^ZNope -- I refuse to be put in the background!
+^CNot so simple -- I can't be stopped with a ctr-c!
+^CNot so simple -- I can't be stopped with a ctr-c!
+^ZNope -- I refuse to be put in the background!
+^CNot so simple -- I can't be stopped with a ctr-c!
+^ZNope -- I refuse to be put in the background!
+^ZNope -- I refuse to be put in the background!
+^ZNope -- I refuse to be put in the background!
+^CNot so simple -- I can't be stopped with a ctr-c!
+Killed
+
+zachmint@zachmint-MacBookPro ~/School/EE424/HW/HW10 $ ps -u
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+zachmint  1681  0.0  0.0  34016  2192 pts/0    Ss+  09:16   0:10 /usr/bin/xflux -z 84058 -k 4200 -nofork
+zachmint 17651  0.0  0.0  22772  5524 pts/2    Ss   13:15   0:00 bash
+zachmint 23580  0.0  0.0   4356   644 pts/2    S+   13:42   0:00 ./catch
+zachmint 23690  0.0  0.0  22712  5384 pts/4    Ss   13:42   0:00 bash
+zachmint 24031  0.0  0.0  37364  3348 pts/4    R+   13:44   0:00 ps -u
+zachmint 24032  0.0  0.0   9656   948 pts/4    S+   13:44   0:00 less
+zachmint@zachmint-MacBookPro ~/School/EE424/HW/HW10 $ kill -9 -23580
+zachmint@zachmint-MacBookPro ~/School/EE424/HW/HW10 $ ps -u
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+zachmint  1681  0.0  0.0  34016  2192 pts/0    Ss+  09:16   0:10 /usr/bin/xflux -z 84058 -k 4200 -nofork
+zachmint 17651  0.0  0.0  22772  5524 pts/2    Ss+  13:15   0:00 bash
+zachmint 23690  0.0  0.0  22712  5384 pts/4    Ss   13:42   0:00 bash
+zachmint 24335  0.0  0.0  37364  3332 pts/4    R+   13:45   0:00 ps -u
+zachmint 24336  0.0  0.0   9656   840 pts/4    S+   13:45   0:00 less
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <signal.h>
+#include <unistd.h>
+
+void handler1(int sig)
+{
+    printf("Not so simple -- I can't be stopped with a ctr-c!\n");
+}
+
+void handler2(int sig)
+{
+    printf("Nope -- I refuse to be put in the background!\n");
+}
+
+int main()
+{
+    /* install the SIGINT handlers */
+    /* only code changes go right here! */
+
+    signal(SIGINT, handler1);
+    signal(SIGTSTP, handler2);
+
+    /* Don't change rest of code */
+    printf("Just try to stop me!\n");
+    while (1)
+	sleep(1);
+}
+
+**************************Problem 9.12**************************
+0x03A9
+3d7
+A-
+    |13_|12_|||11_|10_|_9_|_8_|||_7_|_6_|_5_|_4_|||_3_|_2_|_1_|_0_|
+    |_0_|_0_|||_0_|_0_|_1_|_1_|||_1_|_0_|_1_|_0_|||_1_|_0_|_0_|_1_|
+B-
+    VPN_________00001110 = 0xE
+    TLB index___10       = 0x2
+    TLB tag_____11       = 0x3
+    TLB hit?____ N
+    page fault?_ Y
+    PPN_________ ---
+
+
+BECAUSE IT WAS A PAGE FAULT C AND D ARE TO BE LEFT BLANK
+
+C-
+    |13_|12_|11_|10_|_9_|_8_|_7_|_6_|_5_|_4_|_3_|_2_|_1_|_0_|
+D-
+    Byte offset_________
+    Cache index_________
+    Cache tag___________
+    Cache hit?__________
+    Cache byte returned_
+
+**************************Problem 9.14**************************
+
+#include "csapp.h"
+#include <sys/mman.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
+
+int main()
+{
+    int file = open("hello.txt", O_RDWR);
+    if (file < 0) {
+        perror("hello.txt open"); exit(EXIT_FAILURE);
+    }
+
+    struct stat mystat;
+    if (fstat(file, &mystat)) {
+        perror("fstat"); exit(EXIT_FAILURE);
+    }
+
+    off_t myfsz = mystat.st_size;
+    void*ad = mmap(NULL, myfsz, PROT_READ|PROT_WRITE, MAP_SHARED, file, 0);
+    if (ad == MAP_FAILED) {
+        perror("mmap");
+        exit(EXIT_FAILURE);
+    }
+
+    if(*((char *)ad) == 'H') {
+        (*(char *)ad) = 'J';
+    }
+
+}
+
+*************************Problem 424-12*************************
+
+mmap can definitely be used to share data between processes. Both processes saw
+the original data the same and when it was altered by one process both processes
+were able to see the same altered results. There is a lot of overhead for mmap.
+It ended up adding thousands of cycles to access and change the data. So it is
+a viable solution but it does have a lot of overhead. The order that processes
+run their execution was not always consistent. It is unpredictable.
